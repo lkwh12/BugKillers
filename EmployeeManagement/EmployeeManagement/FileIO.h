@@ -21,6 +21,7 @@ public:
     void close();
     vector<string> readLines();
     int writeLines(vector<string> outputs);
+    string readLine();
     int writeLine(string output);
 
 private:

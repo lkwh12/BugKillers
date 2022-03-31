@@ -29,10 +29,20 @@ TEST(TestCaseName, FileWriteTest) {
 	EXPECT_EQ(7, ret);
 }
 
+TEST(TestCaseName, FileSingleReadTest) {
+	FileIO file("../EmployeeManagement/input_20_20.txt", FileType::INPUT);
+	file.open();
+	string line0 = file.readLine();
+	string line1 = file.readLine();
+
+	file.close();
+	EXPECT_EQ(0, strcmp(line0.c_str(), "ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV"));
+	EXPECT_EQ(0, strcmp(line1.c_str(), "ADD, , , ,17112609,FB NTAWR,CL4,010-5645-6122,19861203,PRO"));
+}
+
 TEST(TestCaseName, FileSingleWriteTest) {
 	FileIO file("../EmployeeManagement/result.txt", FileType::OUTPUT);
 	string sample = "SCH,02117175,SBILHUT LDEXRI,CL4,010-2814-1699,19950704,ADV";
-
 	file.open();
 	int ret = file.writeLine(sample);
 	file.close();

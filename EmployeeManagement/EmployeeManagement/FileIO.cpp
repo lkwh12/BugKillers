@@ -46,6 +46,17 @@ int FileIO::writeLines(vector<string> outputs) {
 	}
 	return numLines;
 }
+string FileIO::readLine() {
+	string result;
+	if (!inputFile_.is_open()) {
+		throw invalid_argument("ERR: Input File is NOT opened");
+	}
+	if (inputFile_.eof()) {
+		return result;
+	}
+	getline(inputFile_, result);
+	return result;
+}
 int FileIO::writeLine(string output) {
 	if (!outputFile_.is_open()) {
 		throw invalid_argument("ERR: Output File is NOT opened");
