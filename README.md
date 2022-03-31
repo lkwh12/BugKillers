@@ -1,6 +1,7 @@
 # BugKillers
 초기 설계
-https://user-images.githubusercontent.com/1198553/161010973-0c01bac2-d796-4efc-9224-3c388755c41b.png
+
+![초기설계](https://user-images.githubusercontent.com/1198553/161010973-0c01bac2-d796-4efc-9224-3c388755c41b.png)
 
 ## Contributors
 @lkwh12
