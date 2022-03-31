@@ -4,7 +4,7 @@
 @lkwh12
 @sjslush
 @yh0203kim
-
+@minje46
 
 ## Ground rules
 	1. 정시 퇴근 및 퇴근 이후 찾지 않기
