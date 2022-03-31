@@ -23,6 +23,9 @@ public:
 		employeeNum_(employeeNum), name_(name), phoneNum_(phoneNum), birthday_(birthday), cl_(cl), certi_(certi)
 	{}
 
+	Employee() {
+	}
+
 	string employeeNum_;
 	Name name_;
 	PhoneNum phoneNum_;
