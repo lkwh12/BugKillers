@@ -2,6 +2,7 @@
 
 # Contributors
 @lkwh12
+@sjslush
 
 # Ground rules
 1. 정시 퇴근 및 퇴근 이후 찾지 않기
