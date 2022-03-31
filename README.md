@@ -20,10 +20,22 @@
 
 ## 팀프로젝트 진행
 
-### 1. Commit Message Rule
+### 1. Coding Style
+	Google C++ coding style
+	-> Google C++ coding style checker(cpplint)
+	ref. link : https://pros2.tistory.com/136
 
-### 2. 제목 Prefix
+### 2. Naming Rule
 
-### 3. Coding Style
-
-### 4. Naming Rule
+### 3. Commit Message Rule
+	feature : 새로운 기능 추가
+	fix : 버그 수정
+	docs : 문서 수정
+	test : 테스트 코드 추가
+	refactor : 코드 리팩토링
+	style : 코드 의미에 영향을 주지 않는 변경사항
+	예시 [fix] ~~ 버그 수정
+		
+### 4. Branch Rule
+	Main Branch를 두고 개인 별 Develop Branch를 만들어 수정 진행
+	PR을 통해 Main Branch에 Merge 진행(Merge and Squash, Merge and Rebase)
