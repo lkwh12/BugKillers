@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 		string inputLine = inputFile.readLine();
 		if (inputLine == "") break;
 		Input input = parser.parseLine(inputLine);
-		shared_ptr<ICommand> cmd = commandFactory.createCommand(input.getCommand());
+		shared_ptr<ICommand> cmd = commandFactory.createCommand(input);
 		//cmd->execute();
 	}
 
