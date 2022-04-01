@@ -37,7 +37,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddTest.cpp" />
+    <ClCompile Include="DeleteTest.cpp" />
     <ClCompile Include="FileIOTest.cpp" />
+    <ClCompile Include="ModifyTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
