@@ -4,14 +4,17 @@
 using namespace std;
 
 struct Name {
+	string name;
 	string firstName;
 	string lastName;
 };
 struct PhoneNum {
+	string phoneNum;
 	string middlePhoneNum;
 	string lastPhoneNum;
 };
 struct BirthDay {
+	string birthDay;
 	string year;
 	string month;
 	string day;
