@@ -4,7 +4,7 @@
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="FileIOTest.cpp" />
-    <ClCompile Include="CommandTest.cpp" />
+    <ClCompile Include="AddTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="test_MemoryDatabase.cpp" />
     <ClCompile Include="DeleteTest.cpp" />
