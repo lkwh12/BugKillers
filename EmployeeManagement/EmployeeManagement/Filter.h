@@ -18,7 +18,7 @@ public:
 	void setColumn(Column column) { this->column = column;  }
 	Column getColumn() { return this->column; }
 
-	void setName(const std::string& value) { this->value = value; }
+	void setValue(const std::string& value) { this->value = value; }
 	const std::string& getValue() const { return this->value; }
 
 private:
