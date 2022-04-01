@@ -2,10 +2,12 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include "Input.h"
 
 using namespace std;
 
 class Parser {
 public:
-	vector<string> parse(const string& inputLine);
+	vector<string> tokenize(const string& inputLine);
+	Input parseLine(const string& inputLine);
 };

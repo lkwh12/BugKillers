@@ -146,6 +146,12 @@
   <ItemGroup>
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Filter.h" />
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="IDatabase.h" />
+    <ClInclude Include="ILogger.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Parser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
