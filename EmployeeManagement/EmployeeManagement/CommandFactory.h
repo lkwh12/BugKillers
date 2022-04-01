@@ -5,5 +5,6 @@
 
 class CommandFactory {
 public:
-	ICommand* createCommand(string command);
+	//ICommand* createCommand(string command);
+	shared_ptr<ICommand> createCommand(string command);
 };

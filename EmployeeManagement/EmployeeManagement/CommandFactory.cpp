@@ -1,20 +1,20 @@
 #include "CommandFactory.h"
 
-ICommand* CommandFactory::createCommand(string command) {
+shared_ptr<ICommand> CommandFactory::createCommand(string command) {
 	if (command == "ADD") {
-		ICommand* result = nullptr; // new AddCommand
+		shared_ptr<ICommand> result = nullptr; // new AddCommand
 		return result;
 	}
 	else if (command == "DEL") {
-		ICommand* result = nullptr; // new DelCommand
+		shared_ptr<ICommand> result = nullptr; // new DelCommand
 		return result;
 	}
 	else if (command == "MOD") {
-		ICommand* result = nullptr; // new ModCommand
+		shared_ptr<ICommand> result = nullptr; // new ModCommand
 		return result;
 	}
 	else if (command == "SCH") {
-		ICommand* result = nullptr; // new SchCommand
+		shared_ptr<ICommand> result = nullptr; // new SchCommand
 		return result;
 	}
 	else {
