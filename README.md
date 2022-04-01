@@ -1,13 +1,14 @@
 # BugKillers
 초기 설계
 
-![초기설계](https://user-images.githubusercontent.com/1198553/161010973-0c01bac2-d796-4efc-9224-3c388755c41b.png)
+![초기설계](https://user-images.githubusercontent.com/1198553/161181400-eb852bab-c2ab-4d91-8d88-833854dd9f3a.png)
 
 ## Contributors
 @lkwh12
 @sjslush
 @yh0203kim
 @minje46
+@h2kfl
 
 ## Ground rules
 	1. 정시 퇴근 및 퇴근 이후 찾지 않기
