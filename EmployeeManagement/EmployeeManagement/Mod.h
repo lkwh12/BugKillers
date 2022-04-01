@@ -7,8 +7,8 @@
 class Mod : public ICommand {
 public:
 	Mod() {}
-	virtual void execute(const IDatabase& db, const ILogger& logger) {
-
+	virtual bool execute(const IDatabase& db, const ILogger& logger) {
+		return true;
 	}
 private:
 };
