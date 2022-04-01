@@ -79,6 +79,7 @@ TEST(TestCaseName, ParserAddTest) {
 	EXPECT_STREQ(result.getPayload()[3].c_str(), "010-3112-2609");
 	EXPECT_STREQ(result.getPayload()[4].c_str(), "19771211");
 	EXPECT_STREQ(result.getPayload()[5].c_str(), "ADV");
+	EXPECT_EQ(result.getPayload().size(), 6);
 
 	delete pParser;
 }
@@ -95,6 +96,7 @@ TEST(TestCaseName, ParserModifyTest) {
 	EXPECT_STREQ(result.getPayload()[1].c_str(), "FB NTAWR");
 	EXPECT_STREQ(result.getPayload()[2].c_str(), "birthday");
 	EXPECT_STREQ(result.getPayload()[3].c_str(), "20050520");
+	EXPECT_EQ(result.getPayload().size(), 4);
 
 	delete pParser;
 }
@@ -109,6 +111,7 @@ TEST(TestCaseName, ParserSearchTest) {
 	EXPECT_STREQ(result.getSecondOption().c_str(), "-y");
 	EXPECT_STREQ(result.getPayload()[0].c_str(), "birthday");
 	EXPECT_STREQ(result.getPayload()[1].c_str(), "2003");
+	EXPECT_EQ(result.getPayload().size(), 2);
 
 	delete pParser;
 }
@@ -123,6 +126,7 @@ TEST(TestCaseName, ParserDeleteTest) {
 	EXPECT_STREQ(result.getSecondOption().c_str(), "-l");
 	EXPECT_STREQ(result.getPayload()[0].c_str(), "name");
 	EXPECT_STREQ(result.getPayload()[1].c_str(), "MPOSXU");
+	EXPECT_EQ(result.getPayload().size(), 2);
 
 	delete pParser;
 }
