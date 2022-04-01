@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="MemoryDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandFactory.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Filter.h" />
