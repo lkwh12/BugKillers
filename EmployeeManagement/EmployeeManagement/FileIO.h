@@ -16,6 +16,8 @@ public:
     FileIO(const string& fileName, FileType type) :
         fileName_(fileName), type_(type),
         inputFile_(""), outputFile_("") {}
+    FileIO(const FileIO& copy) : fileName_(copy.fileName_), type_(copy.type_),
+        inputFile_(""), outputFile_("") {}
     
     void open();
     void close();

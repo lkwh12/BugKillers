@@ -9,6 +9,7 @@
     <ClCompile Include="test_MemoryDatabase.cpp" />
     <ClCompile Include="DeleteTest.cpp" />
     <ClCompile Include="ModifyTest.cpp" />
+    <ClCompile Include="FileLoggerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
