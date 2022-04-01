@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Add.h" />
+    <ClInclude Include="CommandFactory.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Filter.h" />
