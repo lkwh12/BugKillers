@@ -153,6 +153,7 @@
     <ClInclude Include="ILogger.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Interface.h" />
+    <ClInclude Include="Mod.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="MemoryDatabase.h" />
   </ItemGroup>
