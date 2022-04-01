@@ -145,6 +145,7 @@
     <ClCompile Include="MemoryDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Add.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Filter.h" />
