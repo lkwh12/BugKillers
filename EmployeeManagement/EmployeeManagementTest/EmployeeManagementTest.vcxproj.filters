@@ -7,6 +7,7 @@
     <ClCompile Include="CommandTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="test_MemoryDatabase.cpp" />
+    <ClCompile Include="DeleteTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
