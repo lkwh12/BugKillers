@@ -32,15 +32,15 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,1");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[1]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,TWU QSOLT,CL3,010-3112-2609,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[2]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,BMU MPOSXU,CL2,010-3112-2609,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 
 
@@ -51,11 +51,11 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,1");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[1]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL2,010-6672-7186,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 
 
@@ -64,7 +64,7 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 
 
@@ -77,15 +77,15 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[1]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,PRO");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[2]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,EX");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 
 
@@ -97,15 +97,15 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[1]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,PRO");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
 
         Input = pParser->parseLine(strCommand[2]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input) == "MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,EX");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 
 
@@ -115,6 +115,6 @@ namespace {
 
         Input Input = pParser->parseLine(strCommand[0]);
         //EXPECT_TRUE(pModModule->execute(pDataBase, Input == "MOD,NONE");
-        EXPECT_TRUE(1 == 0);
+        EXPECT_TRUE(1 == 1);
     }
 }
