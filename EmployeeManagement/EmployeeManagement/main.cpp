@@ -10,22 +10,20 @@ int main(int argc, char** argv) {
 	inputFile.open();
 	outputFile.open();
 
-	Parser* pParser = new Parser();
-	IDatabase* pDatabase = new MemoryDatabase();
-	CommandFactory* pCommandFactory = new CommandFactory();
+	Parser parser;
+	MemoryDatabase memDB;
+	IDatabase& DB = memDB;
+	CommandFactory commandFactory;
 
 	while (1) {
 		string inputLine = inputFile.readLine();
 		if (inputLine == "") break;
-		Input input = pParser->parseLine(inputLine);
-		ICommand* cmd = pCommandFactory->createCommand(input.getCommand());
+		Input input = parser.parseLine(inputLine);
+		shared_ptr<ICommand> cmd = commandFactory.createCommand(input.getCommand());
 		//cmd->execute();
 	}
 
 	inputFile.close ();
 	outputFile.close();
-	delete pCommandFactory;
-	delete pDatabase;
-	delete pParser;
 	return 0;
 }
