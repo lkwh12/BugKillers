@@ -5,16 +5,18 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="FileIOTest.cpp" />
     <ClCompile Include="CommandTest.cpp" />
+    <ClCompile Include="ParserTest.cpp" />
+    <ClCompile Include="test_MemoryDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="소스 파일">
       <UniqueIdentifier>{a3d78838-c1b2-45da-8861-ee091b021bd5}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
