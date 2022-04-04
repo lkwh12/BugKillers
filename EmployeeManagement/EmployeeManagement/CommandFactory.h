@@ -2,6 +2,9 @@
 
 #include "ICommand.h"
 #include "Input.h"
+#include "Add.h"
+#include "Sch.h"
+#include <memory>
 
 class CommandFactory {
 public:
