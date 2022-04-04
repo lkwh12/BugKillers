@@ -2,7 +2,7 @@
 
 shared_ptr<ICommand> CommandFactory::createCommand(Input input) {
 	if (input.getCommand() == "ADD") {
-		shared_ptr<ICommand> result = nullptr; // new AddCommand(input)
+		shared_ptr<ICommand> result = make_shared<Add>(input);
 		return result;
 	}
 	else if (input.getCommand() == "DEL") {
@@ -14,7 +14,7 @@ shared_ptr<ICommand> CommandFactory::createCommand(Input input) {
 		return result;
 	}
 	else if (input.getCommand() == "SCH") {
-		shared_ptr<ICommand> result = nullptr; // new SchCommand(input)
+		shared_ptr<ICommand> result = make_shared<Sch>(input);
 		return result;
 	}
 	else {

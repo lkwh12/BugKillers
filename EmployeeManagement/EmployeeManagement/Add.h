@@ -3,6 +3,7 @@
 #include "ICommand.h"
 #include "Filter.h"
 #include "Input.h"
+#include <sstream>
 
 class Add : public ICommand {
 public:
@@ -53,7 +54,7 @@ public:
 		}
 
 		if (payloads[2] == " " || payloads[5] == "") {
-			//throw invalid_argument("ERROR:: invalid birthday format!");
+			//throw invalid_argument("ERROR:: invalid cl or certi format!");
 			return false;
 		}
 		return true;
