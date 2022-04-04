@@ -28,7 +28,7 @@ public:
 		fileOut_ = make_shared<FileIO>(outFile, FileType::OUTPUT);
 		fileIn_->open();
 		fileOut_->open();
-		logger_ = make_shared<FileLogger>(fileOut_);
+		logger_ = make_shared<FileLogger>(*fileOut_);
 	}
 
 	void proceed() {
