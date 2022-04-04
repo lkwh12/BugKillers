@@ -25,9 +25,7 @@ void FileIO::close() {
 	}
 }
 vector<string> FileIO::readLines() {
-	if (!inputFile_.is_open()) {
-		throw invalid_argument("ERR: Input File is NOT opened");
-	}
+	checkInputOrThrow();
 	vector<string> result;
 	while (!inputFile_.eof()) {
 		result.emplace_back();
@@ -36,10 +34,8 @@ vector<string> FileIO::readLines() {
 	return result;
 }
 int FileIO::writeLines(vector<string> outputs) {
+	checkOutputOrThrow();
 	int numLines = 0;
-	if (!outputFile_.is_open()) {
-		throw invalid_argument("ERR: Output File is NOT opened");
-	}
 	for(auto line: outputs) {
 		outputFile_ << line << endl;
 		numLines++;
@@ -47,20 +43,30 @@ int FileIO::writeLines(vector<string> outputs) {
 	return numLines;
 }
 string FileIO::readLine() {
+	checkInputOrThrow();
 	string result;
-	if (!inputFile_.is_open()) {
-		throw invalid_argument("ERR: Input File is NOT opened");
-	}
 	if (inputFile_.eof()) {
 		return result;
 	}
 	getline(inputFile_, result);
 	return result;
 }
+bool FileIO::hasMore() {
+	checkInputOrThrow();
+	return !inputFile_.eof();
+}
 int FileIO::writeLine(string output) {
+	checkOutputOrThrow();
+	outputFile_ << output << endl;
+	return 1;
+}
+void FileIO::checkInputOrThrow() {
+	if (!inputFile_.is_open()) {
+		throw invalid_argument("ERR: Input File is NOT opened");
+	}
+}
+void FileIO::checkOutputOrThrow() {
 	if (!outputFile_.is_open()) {
 		throw invalid_argument("ERR: Output File is NOT opened");
 	}
-	outputFile_ << output << endl;
-	return 1;
 }
