@@ -29,3 +29,11 @@
 # Executables
 *.out
 *.app
+
+# ignore local generated paths
+/EmployeeManagement/.vs
+/EmployeeManagement/EmployeeManagement/result.txt
+/EmployeeManagement/EmployeeManagement/x64
+/EmployeeManagement/EmployeeManagementTest/x64
+/EmployeeManagement/packages
+/EmployeeManagement/x64
