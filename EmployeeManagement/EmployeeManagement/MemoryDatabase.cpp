@@ -38,13 +38,20 @@ static std::function<bool(std::pair<std::string, std::shared_ptr<Employee>>)> ge
 	}
 }
 
+static std::string adjustKey(const std::string key) {
+	// if (key.length() != 8) return key;
+	int yr = key.at(0) * 10 + key.at(1);
+	if (69 <= yr) return "19" + key;
+	return "20" + key;
+}
+
 bool MemoryDatabase::insert(const Employee& employee) {
-	const std::string key = employee.employeeNum_;
-	if (map_.find(key) != map_.end()) {
+	const std::string adjustedKey = adjustKey(employee.employeeNum_);
+	if (map_.find(adjustedKey) != map_.end()) {
 		return false;
 	}
 
-	map_[key] = std::make_shared<Employee>(employee);
+	map_[adjustedKey] = std::make_shared<Employee>(employee);
 
 	return true;
 }
@@ -62,7 +69,8 @@ std::vector<std::shared_ptr<Employee>> MemoryDatabase::query(const Filter& filte
 int MemoryDatabase::remove(std::vector<std::string> employeeNumbers) {
 	int cnt = 0;
 	for (auto& key : employeeNumbers) {
-		auto it = map_.find(key);
+		auto adjustedKey = adjustKey(key);
+		auto it = map_.find(adjustedKey);
 		if (it != map_.end()) {
 			map_.erase(it);
 			cnt++;
