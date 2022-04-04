@@ -1,6 +1,6 @@
 #include "FileLogger.h"
 
-int FileLogger::dump(const string& command, const vector<Employee>& outputList) {
+int FileLogger::dump(const string& command, const vector<shared_ptr<Employee>>& outputList) {
 	string result;
 	if (outputList.size() == 0) {
 		result = command + ",NONE";
@@ -15,9 +15,9 @@ int FileLogger::dump(const string& command, const vector<Employee>& outputList) 
 	int cnt = 0;
 	for (auto item : outputList) {
 		if (cnt >= MAX_PRINT_COUNT) break;
-		result = command + "," + item.employeeNum_ + "," + item.name_.name + "," +
-				item.cl_ + "," + item.phoneNum_.phoneNum + "," +
-				item.birthday_.birthDay + "," + item.certi_;
+		result = command + "," + item->employeeNum_ + "," + item->name_.name + "," +
+				item->cl_ + "," + item->phoneNum_.phoneNum + "," +
+				item->birthday_.birthDay + "," + item->certi_;
 		file_.writeLine(result);
 		cnt++;
 	}
