@@ -4,5 +4,5 @@
 #include "ILogger.h"
 
 interface ICommand {
-	virtual bool execute(const IDatabase& db, const ILogger& logger) = 0;
+	virtual bool execute(IDatabase& db, ILogger& logger) = 0;
 };
