@@ -33,6 +33,9 @@
     <ClCompile Include="FileLogger.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="FilterConverter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Employee.h">
@@ -78,6 +81,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Del.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterConverter.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

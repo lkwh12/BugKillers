@@ -10,6 +10,7 @@
     <ClCompile Include="ModifyTest.cpp" />
     <ClCompile Include="FileLoggerTest.cpp" />
     <ClCompile Include="MemoryDatabaseTest.cpp" />
+    <ClCompile Include="FilterConverterTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
