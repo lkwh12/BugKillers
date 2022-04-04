@@ -11,7 +11,7 @@ public:
 	virtual bool execute(IDatabase& db, ILogger& logger) {
 		FilterConverter filterConverter;
 
-		auto outputList =  db.query(filterConverter.getFilter(input));
+ 		auto outputList =  db.query(filterConverter.getFilter(input));
 		logger.dump("SCH", outputList);
 
 		return true;
