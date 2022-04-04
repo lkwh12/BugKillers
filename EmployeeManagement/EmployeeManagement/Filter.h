@@ -20,9 +20,10 @@ public:
 	};
 
 	Filter() : column(Column::EMPLOYEE_NUM) { };
+	Filter(Column column, const std::string& value) : column(column), value(value) { };
 
 	void setColumn(Column column) { this->column = column;  }
-	Column getColumn() { return this->column; }
+	const Column getColumn() const { return this->column; }
 
 	void setValue(const std::string& value) { this->value = value; }
 	const std::string& getValue() const { return this->value; }
