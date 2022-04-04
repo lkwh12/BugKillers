@@ -164,6 +164,7 @@
     <ClInclude Include="Mod.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="MemoryDatabase.h" />
+    <ClInclude Include="Sch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

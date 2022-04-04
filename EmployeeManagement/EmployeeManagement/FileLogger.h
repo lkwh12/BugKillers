@@ -9,7 +9,7 @@ public:
 	void setPrintDetail(bool option) override {
 		bPrintDetail = option;
 	}
-	int dump(const string& command, const vector<Employee>& outputList) override;
+	int dump(const string& command, const vector<shared_ptr<Employee>>& outputList) override;
 private:
 	bool bPrintDetail;
 	FileIO& file_;
