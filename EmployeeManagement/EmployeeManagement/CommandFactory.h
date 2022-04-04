@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Add.h"
 #include "Sch.h"
+#include "Del.h"
+#include "Mod.h"
 #include <memory>
 
 class CommandFactory {

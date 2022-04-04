@@ -85,7 +85,7 @@ private:
 	void modifyBirthDay(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 
 		for (auto& Employee : searchResult) {
-			Employee->birthday_ = BirthDay(modifyContents.substr(0, 2), modifyContents.substr(2, 2), modifyContents.substr(4, 2));
+			Employee->birthday_ = BirthDay(modifyContents.substr(0, 4), modifyContents.substr(4, 2), modifyContents.substr(6, 2));
 		}
 	}
 
