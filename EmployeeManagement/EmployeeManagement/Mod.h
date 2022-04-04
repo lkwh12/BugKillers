@@ -45,6 +45,11 @@ public:
 
 		return true;
 	}
+
+
+	bool makeFilter(Filter& filter) {
+		return true;
+	}
 private:
 	Input input_;
 
