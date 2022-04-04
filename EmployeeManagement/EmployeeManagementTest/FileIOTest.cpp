@@ -33,8 +33,10 @@ TEST(TestCaseName, FileSingleReadTest) {
 	FileIO file("../EmployeeManagement/input_20_20.txt", FileType::INPUT);
 	file.open();
 	string line0 = file.readLine();
+	EXPECT_TRUE(file.hasMore());
 	string line1 = file.readLine();
-
+	while (file.hasMore()) file.readLine();
+	EXPECT_FALSE(file.hasMore());
 	file.close();
 	EXPECT_EQ(0, strcmp(line0.c_str(), "ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV"));
 	EXPECT_EQ(0, strcmp(line1.c_str(), "ADD, , , ,17112609,FB NTAWR,CL4,010-5645-6122,19861203,PRO"));

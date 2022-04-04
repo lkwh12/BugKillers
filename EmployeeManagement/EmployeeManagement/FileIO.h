@@ -24,9 +24,12 @@ public:
     vector<string> readLines();
     int writeLines(vector<string> outputs);
     string readLine();
+	bool hasMore();
     int writeLine(string output);
 
 private:
+	void checkInputOrThrow();
+	void checkOutputOrThrow();
     string fileName_;
     FileType type_;
     ifstream inputFile_;
