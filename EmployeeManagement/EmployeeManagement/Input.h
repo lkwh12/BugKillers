@@ -6,6 +6,7 @@
 class Input {
 	using Payload = std::vector<std::string>;
 public:
+	Input() {}
 	Input(const std::string& command,
 		const std::string& firstOption,
 		const std::string& secondOption,
