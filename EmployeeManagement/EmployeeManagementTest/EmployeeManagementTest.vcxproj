@@ -40,6 +40,7 @@
     <ClCompile Include="DeleteTest.cpp" />
     <ClCompile Include="FileIOTest.cpp" />
     <ClCompile Include="FileLoggerTest.cpp" />
+    <ClCompile Include="FilterConverterTest.cpp" />
     <ClCompile Include="MemoryDatabaseTest.cpp" />
     <ClCompile Include="ModifyTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
