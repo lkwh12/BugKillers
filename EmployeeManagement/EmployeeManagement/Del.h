@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ICommand.h"
+#include "FilterConverter.h"
 #include "Filter.h"
 #include "Input.h"
 
@@ -10,15 +11,22 @@ class Del : public ICommand {
 public:
 	Del(const Input& input_) : input(input_) {}
 	virtual bool execute(IDatabase& db, ILogger& logger) {
-		return true;
+		// check Argument
+
+		filter = filterConverter.getFilter(input);
+		if (doDelete(db, filter))
+			return true;
+		return false;
 	}
 
-	bool doDelete(vector<Employee>& searchResult) {
+	bool doDelete(IDatabase& db, Filter& filter) {
 		vector<string> payload = input.getPayload();
-		string search_criteria = payload.at(0);
 		string first_option = input.getFirstOption();
-		string second_option = input.getSecondOption();
 
+		if (filter.getColumn() == Filter::Column::EMPLOYEE_NUM) {
+			int res = deleteById(db, filter);
+		}
+		/*
 		if (search_criteria == "employeeNum") {
 			if (first_option == " ") {
 				deleteById(payload.at(1));
@@ -197,41 +205,27 @@ public:
 			throw invalid_argument("Error : Invalid search option");
 			return false;
 		}
+		*/
 		return true;
 	}
 
 private:
 	Input input;
-	
-	vector<shared_ptr<Employee>> deleteById(string first_option, string id);
-	int deleteById(string id);
+	FilterConverter filterConverter;
+	Filter filter;
 
-	vector<shared_ptr<Employee>> deleteByFullName(string first_option, string name);
-	int deleteByFullName(string name);
-	vector<shared_ptr<Employee>> deleteByFirstName(string first_option, string name);
-	int deleteByFirstName(string name);
-	vector<shared_ptr<Employee>> deleteByLastName(string first_option, string name);
-	int deleteByLastName(string name);
+	int deleteById(IDatabase& db, Filter& filter)
+	{
+		
+		auto result = db.query(Filter(Filter::Column::EMPLOYEE_NUM, filter.getValue()));
+	//	auto result = db.query(filter);
 
-	vector<shared_ptr<Employee>> deleteByFullPhone(string first_option, string phone);
-	int deleteByFullPhone(string phone);
-	vector<shared_ptr<Employee>> deleteByMiddlePhone(string first_option, string phone);
-	int deleteByMiddlePhone(string phone);
-	vector<shared_ptr<Employee>> deleteByLastPhone(string first_option, string phone);
-	int deleteByLastPhone(string phone);
+		vector<string> eNum;
+		for (auto it : result)
+			eNum.emplace_back(it->employeeNum_);
+		db.remove(eNum);
 
-	vector<shared_ptr<Employee>> deleteByFullBirth(string first_option, string birth);
-	int deleteByFullBirth(string birth);
-	vector<shared_ptr<Employee>> deleteByYearBirth(string first_option, string birth);
-	int deleteByYearBirth(string birth);
-	vector<shared_ptr<Employee>> deleteByMonthBirth(string first_option, string birth);
-	int deleteByMonthBirth(string birth);
-	vector<shared_ptr<Employee>> deleteByDayBirth(string first_option, string birth);
-	int deleteByDayBirth(string birth);
+		return result.size();
+	}
 
-	vector<shared_ptr<Employee>> deleteByCl(string first_option, string cl);
-	int deleteByCl(string cl);
-
-	vector<shared_ptr<Employee>> deleteByCerti(string first_option, string certi);
-	int deleteByCerti(string certi);
 };

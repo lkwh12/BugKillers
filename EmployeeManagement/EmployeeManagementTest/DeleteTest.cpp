@@ -1,26 +1,51 @@
 #include "pch.h"
-#include "../EmployeeManagement/Employee.h"
-#include "../EmployeeManagement/Del.h"
+#include "../EmployeeManagement/MemoryDatabase.h"
+#include "../EmployeeManagement/FileLogger.h"
 #include "../EmployeeManagement/Parser.h"
+#include "../EmployeeManagement/Del.h"
 
 using namespace std;
 
 class DeleteTest : public ::testing::Test {
 protected:
 	void SetUp() override {
-
+		this->Database.push_back({ "20000001",
+				Name("SAMSUNG", "KIM"),
+				PhoneNum("1234", "5678"),
+				BirthDay("2000", "01", "01"),
+				"CL1",
+				"ADV" });
+		this->Database.push_back({ "20000002",
+					Name("SAMSUNG", "KANG"),
+					PhoneNum("2345", "6789"),
+					BirthDay("2001", "02", "02"),
+					"CL2",
+					"PRO" });
+		this->Database.push_back({ "20000003",
+					Name("KAM", "KIM"),
+					PhoneNum("3456", "5678"),
+					BirthDay("2001", "02", "01"),
+					"CL3",
+					"EXP" });
+		this->db.insert(Database[0]);
+		this->db.insert(Database[1]);
+		this->db.insert(Database[2]);
 	}
 
 public:
+	MemoryDatabase db;
+	vector<Employee> Database;
 	Parser parser;
-	shared_ptr<Del> delCommand;
 };
 
 // name, phone, birth
 TEST_F(DeleteTest, TestNoOption)
 {
+	FileIO outputfile("../EmployeeManagement/result.txt", FileType::OUTPUT);
+	FileLogger fileLogger(outputfile);
+
 	vector<string> cmds;
-	cmds.emplace_back("DEL, , , ,id, 20000000");
+	cmds.emplace_back("DEL, , , ,employeeNum, 20000001");
 	cmds.emplace_back("DEL, , , ,name, SAMSUNG KIM");
 	cmds.emplace_back("DEL, , , ,phone, 01012345678");
 	cmds.emplace_back("DEL, , , ,birth, 20200101");
@@ -28,6 +53,10 @@ TEST_F(DeleteTest, TestNoOption)
 	cmds.emplace_back("DEL, , , ,certi, PRO");
 
 	// Return the number of deleted data
+	Del delCommand1(parser.parseLine(cmds[0]));
+	EXPECT_EQ(true, delCommand1.execute(db, fileLogger));
+		
+
 	//delCommand = new Del(parser.parseLine(cmds[0]));
 	//EXPECT_TRUE(delCommand->execute(database, logger), 1);
 	//	EXPECT_EQ(1, deleteById(cmd_id));
