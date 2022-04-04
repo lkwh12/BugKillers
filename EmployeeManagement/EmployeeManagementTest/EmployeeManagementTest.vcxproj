@@ -40,6 +40,7 @@
     <ClCompile Include="DeleteTest.cpp" />
     <ClCompile Include="FileIOTest.cpp" />
     <ClCompile Include="FileLoggerTest.cpp" />
+    <ClCompile Include="MemoryDatabaseTest.cpp" />
     <ClCompile Include="ModifyTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="test.cpp" />
@@ -49,7 +50,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="test_MemoryDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement\EmployeeManagement.vcxproj">

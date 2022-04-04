@@ -6,10 +6,10 @@
     <ClCompile Include="FileIOTest.cpp" />
     <ClCompile Include="AddTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
-    <ClCompile Include="test_MemoryDatabase.cpp" />
     <ClCompile Include="DeleteTest.cpp" />
     <ClCompile Include="ModifyTest.cpp" />
     <ClCompile Include="FileLoggerTest.cpp" />
+    <ClCompile Include="MemoryDatabaseTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
