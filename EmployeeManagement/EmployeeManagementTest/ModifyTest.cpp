@@ -8,20 +8,74 @@ namespace {
     class ModifyTest : public testing::Test {
     protected:
         void SetUp() override {
-            this->pDataBase = make_shared<Employee>("15123099",
-                                                   Name{ "VXIHXOTH", "JHOP" },
-                                                   PhoneNum{ "3112", "2609" },
-                                                   BirthDay{ "77", "12", "11" },
-                                                   "CL3",
-                                                   "ADV");
-            this->pModModule = make_shared<Mod>();
+            this->DataBase.push_back({ "15123099",
+                                        Name{ "VXIHXOTH", "JHOP" },
+                                        PhoneNum{ "3112", "2609" },
+                                        BirthDay{ "77", "12", "11" },
+                                        "CL3",
+                                        "ADV" });
             this->pParser = make_shared<Parser>();
         }
         // common data
-        shared_ptr<Employee> pDataBase;
-        shared_ptr<Mod> pModModule;
+        vector<Employee> DataBase;
         shared_ptr<Parser> pParser;
     };
+
+    TEST_F(ModifyTest, DATA_MODIFY_TEST) {
+        Input Input;
+        vector<string> strCommand;
+        strCommand.push_back("MOD, , , ,name,VXIHXOTH JHOP,name,TWU QSOLT");
+        strCommand.push_back("MOD,-p, , ,name,TWU QSOLT,name,BMU MPOSXU");
+        strCommand.push_back("MOD,-p,-f, ,name,BMU,phoneNum,010-6672-7186");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,birthday,780918");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employNum,12121212");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,cl,CL4");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,certi,EX");
+
+        Input = pParser->parseLine(strCommand.at(0));
+        shared_ptr<Mod> pModModule0 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule0->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).name_.name == "TWU QSOLT");
+        EXPECT_TRUE(DataBase.at(0).name_.firstName == "TWU");
+        EXPECT_TRUE(DataBase.at(0).name_.lastName == "QSOLT");
+
+        Input = pParser->parseLine(strCommand.at(1));
+        shared_ptr<Mod> pModModule1 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule1->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).name_.name == "BMU MPOSXU");
+        EXPECT_TRUE(DataBase.at(0).name_.firstName == "BMU");
+        EXPECT_TRUE(DataBase.at(0).name_.lastName == "MPOSXU");
+
+        Input = pParser->parseLine(strCommand.at(2));
+        shared_ptr<Mod> pModModule2 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule2->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).phoneNum_.phoneNum == "010-6672-7186");
+        EXPECT_TRUE(DataBase.at(0).phoneNum_.middlePhoneNum == "6672");
+        EXPECT_TRUE(DataBase.at(0).phoneNum_.lastPhoneNum == "7186");
+
+        Input = pParser->parseLine(strCommand.at(3));
+        shared_ptr<Mod> pModModule3 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule3->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).birthday_.birthDay == "780918");
+        EXPECT_TRUE(DataBase.at(0).birthday_.year == "78");
+        EXPECT_TRUE(DataBase.at(0).birthday_.month == "09");
+        EXPECT_TRUE(DataBase.at(0).birthday_.day == "18");
+
+        Input = pParser->parseLine(strCommand.at(4));
+        shared_ptr<Mod> pModModule4 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule4->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).employeeNum_ == "12121212");
+
+        Input = pParser->parseLine(strCommand.at(5));
+        shared_ptr<Mod> pModModule5 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule5->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).cl_ == "CL4");
+
+        Input = pParser->parseLine(strCommand.at(6));
+        shared_ptr<Mod> pModModule6 = make_shared<Mod>(Input);
+        EXPECT_TRUE(pModModule6->doModify(DataBase) == true);
+        EXPECT_TRUE(DataBase.at(0).certi_ == "EX");
+    }
 
 
     TEST_F(ModifyTest, BASIC_SUCCESS) {
