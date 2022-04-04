@@ -21,9 +21,9 @@ public:
 
 		vector<shared_ptr<Employee>> queryResult = db.query(filter);
 
-		doModify(queryResult);
-
 		logger.dump("MOD", queryResult);
+
+		doModify(queryResult);
 
 		return true;
 	}
