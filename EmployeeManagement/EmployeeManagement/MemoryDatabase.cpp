@@ -57,12 +57,20 @@ bool MemoryDatabase::insert(const Employee& employee) {
 }
 
 std::vector<std::shared_ptr<Employee>> MemoryDatabase::query(const Filter& filter) {
-	std::map<std::string, std::shared_ptr<Employee>> result;
-	std::copy_if(map_.begin(), map_.end(), std::inserter(result, result.end()), getFilterFunction(filter));
-
 	std::vector<shared_ptr<Employee>> list;
-	list.reserve(result.size());
-	for (auto& kv : result) list.push_back(kv.second);
+	// for employee number
+	if (filter.getColumn() == Filter::Column::EMPLOYEE_NUM) {
+		const std::string adjustedKey = adjustKey(filter.getValue());
+		auto it = map_.find(adjustedKey);
+		if (it != map_.end()) list.push_back((*it).second);
+	}
+	else {
+		std::map<std::string, std::shared_ptr<Employee>> result;
+		std::copy_if(map_.begin(), map_.end(), std::inserter(result, result.end()), getFilterFunction(filter));
+
+		list.reserve(result.size());
+		for (auto& kv : result) list.push_back(kv.second);
+	}
 	return list;
 }
 
