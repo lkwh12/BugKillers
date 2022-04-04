@@ -19,6 +19,10 @@ public:
 	bool doModify(vector<Employee>& searchResult) {
 		return true;
 	}
+
+	bool makeFilter(Filter& filter) {
+		return true;
+	}
 private:
 	Input input_;
 };

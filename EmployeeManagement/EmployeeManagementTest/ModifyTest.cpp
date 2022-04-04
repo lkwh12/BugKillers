@@ -22,59 +22,158 @@ namespace {
     };
 
     TEST_F(ModifyTest, DATA_MODIFY_TEST) {
-        Input Input;
+        Input input;
         vector<string> strCommand;
         strCommand.push_back("MOD, , , ,name,VXIHXOTH JHOP,name,TWU QSOLT");
         strCommand.push_back("MOD,-p, , ,name,TWU QSOLT,name,BMU MPOSXU");
         strCommand.push_back("MOD,-p,-f, ,name,BMU,phoneNum,010-6672-7186");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,birthday,780918");
-        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employNum,12121212");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employeeNum,12121212");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,cl,CL4");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,certi,EX");
 
-        Input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(0));
+        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule0->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).name_.name == "TWU QSOLT");
         EXPECT_TRUE(DataBase.at(0).name_.firstName == "TWU");
         EXPECT_TRUE(DataBase.at(0).name_.lastName == "QSOLT");
 
-        Input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule1 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(1));
+        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule1->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).name_.name == "BMU MPOSXU");
         EXPECT_TRUE(DataBase.at(0).name_.firstName == "BMU");
         EXPECT_TRUE(DataBase.at(0).name_.lastName == "MPOSXU");
 
-        Input = pParser->parseLine(strCommand.at(2));
-        shared_ptr<Mod> pModModule2 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(2));
+        shared_ptr<Mod> pModModule2 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule2->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).phoneNum_.phoneNum == "010-6672-7186");
         EXPECT_TRUE(DataBase.at(0).phoneNum_.middlePhoneNum == "6672");
         EXPECT_TRUE(DataBase.at(0).phoneNum_.lastPhoneNum == "7186");
 
-        Input = pParser->parseLine(strCommand.at(3));
-        shared_ptr<Mod> pModModule3 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(3));
+        shared_ptr<Mod> pModModule3 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule3->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).birthday_.birthDay == "780918");
         EXPECT_TRUE(DataBase.at(0).birthday_.year == "78");
         EXPECT_TRUE(DataBase.at(0).birthday_.month == "09");
         EXPECT_TRUE(DataBase.at(0).birthday_.day == "18");
 
-        Input = pParser->parseLine(strCommand.at(4));
-        shared_ptr<Mod> pModModule4 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(4));
+        shared_ptr<Mod> pModModule4 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule4->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).employeeNum_ == "12121212");
 
-        Input = pParser->parseLine(strCommand.at(5));
-        shared_ptr<Mod> pModModule5 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(5));
+        shared_ptr<Mod> pModModule5 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule5->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).cl_ == "CL4");
 
-        Input = pParser->parseLine(strCommand.at(6));
-        shared_ptr<Mod> pModModule6 = make_shared<Mod>(Input);
+        input = pParser->parseLine(strCommand.at(6));
+        shared_ptr<Mod> pModModule6 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule6->doModify(DataBase) == true);
         EXPECT_TRUE(DataBase.at(0).certi_ == "EX");
+    }
+
+
+    TEST_F(ModifyTest, MAKE_FILTER_TEST) {
+        Input input;
+        Filter filter;
+        vector<string> strCommand;
+        strCommand.push_back("MOD, , , ,employeeNum,15123099,name,TWU QSOLT");
+        strCommand.push_back("MOD, , , ,name,TWU QSOLT,name,TWU QSOLT");
+        strCommand.push_back("MOD, ,-f, ,name,TWU,name,BMU MPOSXU");
+        strCommand.push_back("MOD, ,-l, ,name,MPOSXU,phoneNum,010-6672-7186");
+        strCommand.push_back("MOD, , , ,phoneNum,010-6672-7186,birthday,780918");
+        strCommand.push_back("MOD, ,-m, ,phoneNum,6672,employeeNum,12121212");
+        strCommand.push_back("MOD, ,-l, ,phoneNum,7186,cl,CL4");
+        strCommand.push_back("MOD, , , ,birthday,771211,certi,EX");
+        strCommand.push_back("MOD, ,-y, ,birthday,77,certi,EX");
+        strCommand.push_back("MOD, ,-m, ,birthday,12,certi,ADV");
+        strCommand.push_back("MOD, ,-d, ,birthday,11,certi,PRO");
+        strCommand.push_back("MOD, , , ,cl,CL4,name,BMU MPOSXU");
+        strCommand.push_back("MOD, , , ,certi,PRO,name,TWU QSOLT");
+
+
+        input = pParser->parseLine(strCommand.at(0));
+        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule0->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::EMPLOYEE_NUM);
+        EXPECT_TRUE(filter.getValue() == "15123099");
+
+        input = pParser->parseLine(strCommand.at(1));
+        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule1->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::NAME);
+        EXPECT_TRUE(filter.getValue() == "TWU QSOLT");
+
+        input = pParser->parseLine(strCommand.at(2));
+        shared_ptr<Mod> pModModule2 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule2->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::FIRST_NAME);
+        EXPECT_TRUE(filter.getValue() == "TWU");
+
+        input = pParser->parseLine(strCommand.at(3));
+        shared_ptr<Mod> pModModule3 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule3->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::LAST_NAME);
+        EXPECT_TRUE(filter.getValue() == "MPOSXU");
+
+        input = pParser->parseLine(strCommand.at(4));
+        shared_ptr<Mod> pModModule4 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule4->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::TEL);
+        EXPECT_TRUE(filter.getValue() == "010-6672-7186");
+
+        input = pParser->parseLine(strCommand.at(5));
+        shared_ptr<Mod> pModModule5 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule5->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::TEL_MIDDLE);
+        EXPECT_TRUE(filter.getValue() == "6672");
+
+        input = pParser->parseLine(strCommand.at(6));
+        shared_ptr<Mod> pModModule6 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule6->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::TEL_LAST);
+        EXPECT_TRUE(filter.getValue() == "7186");
+
+        input = pParser->parseLine(strCommand.at(7));
+        shared_ptr<Mod> pModModule7 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule7->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::BIRTH);
+        EXPECT_TRUE(filter.getValue() == "771211");
+
+        input = pParser->parseLine(strCommand.at(8));
+        shared_ptr<Mod> pModModule8 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule8->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::BIRTH_YEAR);
+        EXPECT_TRUE(filter.getValue() == "77");
+
+        input = pParser->parseLine(strCommand.at(9));
+        shared_ptr<Mod> pModModule9 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule9->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::BIRTH_MONTH);
+        EXPECT_TRUE(filter.getValue() == "12");
+
+        input = pParser->parseLine(strCommand.at(10));
+        shared_ptr<Mod> pModModule10 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule10->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::BIRTH_DAY);
+        EXPECT_TRUE(filter.getValue() == "11");
+
+        input = pParser->parseLine(strCommand.at(11));
+        shared_ptr<Mod> pModModule11 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule11->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::CL);
+        EXPECT_TRUE(filter.getValue() == "CL4");
+
+        input = pParser->parseLine(strCommand.at(12));
+        shared_ptr<Mod> pModModule12 = make_shared<Mod>(input);
+        EXPECT_TRUE(pModModule12->makeFilter(filter) == true);
+        EXPECT_TRUE(filter.getColumn() == Filter::Column::CERTI);
+        EXPECT_TRUE(filter.getValue() == "PRO");
     }
 
 
