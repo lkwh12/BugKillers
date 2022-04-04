@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "MemoryDatabase.h"
-#include "MemoryDatabase.cpp"
+#include "../EmployeeManagement/MemoryDatabase.h"
+#include "../EmployeeManagement/MemoryDatabase.cpp"
 
 TEST(MemoryDatabaseTest, Insert) {
 	MemoryDatabase db;
