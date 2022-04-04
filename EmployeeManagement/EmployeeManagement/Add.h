@@ -7,7 +7,7 @@
 class Add : public ICommand {
 public:
 	Add(const Input& input_) : input(input_) {}
-	virtual bool execute(const IDatabase& db, const ILogger& logger) {
+	virtual bool execute(IDatabase& db, ILogger& logger) {
 		return true;
 	}
 private:

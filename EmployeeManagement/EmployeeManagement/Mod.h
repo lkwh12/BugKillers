@@ -12,7 +12,7 @@ public:
 
 	}
 
-	virtual bool execute(const IDatabase& db, const ILogger& logger) {
+	virtual bool execute(IDatabase& db, ILogger& logger) {
 		return true;
 	}
 
