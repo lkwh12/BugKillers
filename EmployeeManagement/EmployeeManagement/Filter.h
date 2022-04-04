@@ -3,17 +3,23 @@
 
 class Filter {
 public:
-	enum Column {
+	enum class Column {
+		EMPLOYEE_NUM,
+		NAME,
 		FIRST_NAME,
 		LAST_NAME,
+		TEL,
 		TEL_MIDDLE,
 		TEL_LAST,
+		BIRTH,
 		BIRTH_YEAR,
 		BIRTH_MONTH,
-		BIRTH_DAY
+		BIRTH_DAY,
+		CL,
+		CERTI
 	};
 
-	Filter() : column(FIRST_NAME) { };
+	Filter() : column(Column::EMPLOYEE_NUM) { };
 
 	void setColumn(Column column) { this->column = column;  }
 	Column getColumn() { return this->column; }
