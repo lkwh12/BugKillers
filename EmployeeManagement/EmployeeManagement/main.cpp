@@ -32,23 +32,29 @@ public:
 	}
 
 	void proceed() {
-		Parser parser;
-		CommandFactory commandFactory;
 		while (fileIn_->hasMore()) {
-			Input input = parser.parseLine(fileIn_->readLine());
-			bool doPrintDetail = input.getFirstOption() == "-p";
-			logger_->setPrintDetail(doPrintDetail);
-			shared_ptr<ICommand> cmd = commandFactory.createCommand(input);
-			cmd->execute(*db_, *logger_);
+			auto& line = fileIn_->readLine();
+			if (line.find_first_not_of(' ') == std::string::npos) continue;
+			handleInput(line);
 		}
 	}
 
 private:
+	void handleInput(string& line) {
+		Input input = parser_.parseLine(line);
+		bool doPrintDetail = input.getFirstOption() == "-p";
+		logger_->setPrintDetail(doPrintDetail);
+		shared_ptr<ICommand> cmd = commandFactory_.createCommand(input);
+		cmd->execute(*db_, *logger_);
+	}
+
 	bool isPrepared = false;
 	shared_ptr<IDatabase> db_;
 	unique_ptr<FileIO> fileIn_;
 	shared_ptr<FileIO> fileOut_;
 	shared_ptr<ILogger> logger_;
+	Parser parser_;
+	CommandFactory commandFactory_;
 };
 
 int main(int argc, char** argv) {

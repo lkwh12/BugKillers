@@ -23,7 +23,7 @@ public:
     void close();
     vector<string> readLines();
     int writeLines(vector<string> outputs);
-    string readLine();
+    string& readLine();
 	bool hasMore();
     int writeLine(string output);
 

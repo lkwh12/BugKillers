@@ -42,9 +42,10 @@ int FileIO::writeLines(vector<string> outputs) {
 	}
 	return numLines;
 }
-string FileIO::readLine() {
+string& FileIO::readLine() {
 	checkInputOrThrow();
-	string result;
+	// not thread-safe
+	static string result;
 	if (inputFile_.eof()) {
 		return result;
 	}
