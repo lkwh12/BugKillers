@@ -46,8 +46,92 @@ public:
 		return true;
 	}
 
-
 	bool makeFilter(Filter& filter) {
+		string SecondOption = input_.getSecondOption();
+		vector<string> payload = input_.getPayload();
+
+		if (payload.at(0) == "employeeNum") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::EMPLOYEE_NUM, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: employeeNum Can Not Have Option2");
+				return false;
+			}
+		}
+		else if (payload.at(0) == "name") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::NAME, payload.at(1));
+			}
+			else if (SecondOption == "-f") {
+				filter = Filter(Filter::Column::FIRST_NAME, payload.at(1));
+			}
+			else if (SecondOption == "-l") {
+				filter = Filter(Filter::Column::LAST_NAME, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: Invalid Option2 At name");
+				return false;
+			}
+
+		}
+		else if (payload.at(0) == "cl") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::CL, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: cl Can Not Have Option2");
+				return false;
+			}
+		}
+		else if (payload.at(0) == "phoneNum") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::TEL, payload.at(1));
+			}
+			else if (SecondOption == "-m") {
+				filter = Filter(Filter::Column::TEL_MIDDLE, payload.at(1));
+			}
+			else if (SecondOption == "-l") {
+				filter = Filter(Filter::Column::TEL_LAST, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: Invalid Option2 At phoneNum");
+				return false;
+			}
+		}
+		else if (payload.at(0) == "birthday") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::BIRTH, payload.at(1));
+			}
+			else if (SecondOption == "-y") {
+				filter = Filter(Filter::Column::BIRTH_YEAR, payload.at(1));
+			}
+			else if (SecondOption == "-m") {
+				filter = Filter(Filter::Column::BIRTH_MONTH, payload.at(1));
+			}
+			else if (SecondOption == "-d") {
+				filter = Filter(Filter::Column::BIRTH_DAY, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: Invalid Option2 At birthday");
+				return false;
+			}
+		}
+		else if (payload.at(0) == "certi") {
+			if (SecondOption == " ") {
+				filter = Filter(Filter::Column::CERTI, payload.at(1));
+			}
+			else {
+				throw invalid_argument("ERR: cl Can Not Have Option2");
+				return false;
+			}
+		}
+		else
+		{
+			throw invalid_argument("ERR: Invalid Condition Column Type");
+			return false;
+		}
+
 		return true;
 	}
 private:
