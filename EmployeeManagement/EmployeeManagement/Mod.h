@@ -17,8 +17,6 @@ public:
 
 		Filter filter = filterConverter_.getFilter(input_);
 
-		makeFilter(filter);
-
 		vector<shared_ptr<Employee>> queryResult = db.query(filter);
 
 		logger.dump("MOD", queryResult);
@@ -26,10 +24,6 @@ public:
 		doModify(queryResult);
 
 		return true;
-	}
-
-	void makeFilter(Filter& filter) {
-		filter = filterConverter_.getFilter(input_);
 	}
 
 	bool doModify(vector<shared_ptr<Employee>>& searchResult) {
