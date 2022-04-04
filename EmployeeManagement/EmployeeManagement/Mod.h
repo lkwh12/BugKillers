@@ -3,6 +3,7 @@
 #include "ICommand.h"
 #include "Filter.h"
 #include "Input.h"
+#include "FilterConverter.h"
 
 using namespace std;
 
@@ -13,10 +14,19 @@ public:
 	}
 
 	virtual bool execute(IDatabase& db, ILogger& logger) {
+
+		Filter filter = filterConverter_.getFilter(input_);
+
+		vector<shared_ptr<Employee>> queryResult = db.query(filter);
+
+		logger.dump("MOD", queryResult);
+
+		doModify(queryResult);
+
 		return true;
 	}
 
-	bool doModify(vector<Employee>& searchResult) {
+	bool doModify(vector<shared_ptr<Employee>>& searchResult) {
 		vector<string> payload = input_.getPayload();
 		string modifyColumn = payload.at(2);
 
@@ -46,135 +56,48 @@ public:
 		return true;
 	}
 
-	bool makeFilter(Filter& filter) {
-		string SecondOption = input_.getSecondOption();
-		vector<string> payload = input_.getPayload();
-
-		if (payload.at(0) == "employeeNum") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::EMPLOYEE_NUM, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: employeeNum Can Not Have Option2");
-				return false;
-			}
-		}
-		else if (payload.at(0) == "name") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::NAME, payload.at(1));
-			}
-			else if (SecondOption == "-f") {
-				filter = Filter(Filter::Column::FIRST_NAME, payload.at(1));
-			}
-			else if (SecondOption == "-l") {
-				filter = Filter(Filter::Column::LAST_NAME, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: Invalid Option2 At name");
-				return false;
-			}
-
-		}
-		else if (payload.at(0) == "cl") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::CL, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: cl Can Not Have Option2");
-				return false;
-			}
-		}
-		else if (payload.at(0) == "phoneNum") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::TEL, payload.at(1));
-			}
-			else if (SecondOption == "-m") {
-				filter = Filter(Filter::Column::TEL_MIDDLE, payload.at(1));
-			}
-			else if (SecondOption == "-l") {
-				filter = Filter(Filter::Column::TEL_LAST, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: Invalid Option2 At phoneNum");
-				return false;
-			}
-		}
-		else if (payload.at(0) == "birthday") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::BIRTH, payload.at(1));
-			}
-			else if (SecondOption == "-y") {
-				filter = Filter(Filter::Column::BIRTH_YEAR, payload.at(1));
-			}
-			else if (SecondOption == "-m") {
-				filter = Filter(Filter::Column::BIRTH_MONTH, payload.at(1));
-			}
-			else if (SecondOption == "-d") {
-				filter = Filter(Filter::Column::BIRTH_DAY, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: Invalid Option2 At birthday");
-				return false;
-			}
-		}
-		else if (payload.at(0) == "certi") {
-			if (SecondOption == " ") {
-				filter = Filter(Filter::Column::CERTI, payload.at(1));
-			}
-			else {
-				// throw invalid_argument("ERR: cl Can Not Have Option2");
-				return false;
-			}
-		}
-		else
-		{
-			// throw invalid_argument("ERR: Invalid Condition Column Type");
-			return false;
-		}
-
-		return true;
-	}
 private:
 	Input input_;
+	FilterConverter filterConverter_;
 
-	void modifyEmployeeNum(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyEmployeeNum(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 		for (auto& Employee : searchResult) {
-			Employee.employeeNum_ = modifyContents;
+			Employee->employeeNum_ = modifyContents;
 		}
 	}
 
-	void modifyName(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyName(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 		vector<string> ModifyName = splitByDelimiter(modifyContents, ' ');
 
 		for (auto& Employee : searchResult) {
-			Employee.name_ = Name(ModifyName[0], ModifyName[1]);
+			Employee->name_ = Name(ModifyName[0], ModifyName[1]);
 		}
 	}
 
-	void modifyPhoneNum(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyPhoneNum(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 		vector<string> modifyPhoneNumber = splitByDelimiter(modifyContents, '-');
 
 		for (auto& Employee : searchResult) {
-			Employee.phoneNum_ = PhoneNum(modifyPhoneNumber[1], modifyPhoneNumber[2]);
+			Employee->phoneNum_ = PhoneNum(modifyPhoneNumber[1], modifyPhoneNumber[2]);
 		}
 	}
 
-	void modifyBirthDay(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyBirthDay(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 
 		for (auto& Employee : searchResult) {
-			Employee.birthday_ = BirthDay(modifyContents.substr(0, 2), modifyContents.substr(2, 2), modifyContents.substr(4, 2));
+			Employee->birthday_ = BirthDay(modifyContents.substr(0, 2), modifyContents.substr(2, 2), modifyContents.substr(4, 2));
 		}
 	}
 
-	void modifyCl(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyCl(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 		for (auto& Employee : searchResult) {
-			Employee.cl_ = modifyContents;
+			Employee->cl_ = modifyContents;
 		}
 	}
 
-	void modifyCerti(vector<Employee>& searchResult, const string& modifyContents) {
+	void modifyCerti(vector<shared_ptr<Employee>>& searchResult, const string& modifyContents) {
 		for (auto& Employee : searchResult) {
-			Employee.certi_ = modifyContents;
+			Employee->certi_ = modifyContents;
 		}
 	}
 
