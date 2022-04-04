@@ -35,7 +35,9 @@ public:
 		Parser parser;
 		CommandFactory commandFactory;
 		while (fileIn_->hasMore()) {
-			Input input = parser.parseLine(fileIn_->readLine());
+			string line = fileIn_->readLine();
+			if (line == "") break;
+			Input input = parser.parseLine(line);
 			bool doPrintDetail = input.getFirstOption() == "-p";
 			logger_->setPrintDetail(doPrintDetail);
 			shared_ptr<ICommand> cmd = commandFactory.createCommand(input);
