@@ -55,7 +55,7 @@ public:
 				filter = Filter(Filter::Column::EMPLOYEE_NUM, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: employeeNum Can Not Have Option2");
+				// throw invalid_argument("ERR: employeeNum Can Not Have Option2");
 				return false;
 			}
 		}
@@ -70,7 +70,7 @@ public:
 				filter = Filter(Filter::Column::LAST_NAME, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: Invalid Option2 At name");
+				// throw invalid_argument("ERR: Invalid Option2 At name");
 				return false;
 			}
 
@@ -80,7 +80,7 @@ public:
 				filter = Filter(Filter::Column::CL, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: cl Can Not Have Option2");
+				// throw invalid_argument("ERR: cl Can Not Have Option2");
 				return false;
 			}
 		}
@@ -95,7 +95,7 @@ public:
 				filter = Filter(Filter::Column::TEL_LAST, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: Invalid Option2 At phoneNum");
+				// throw invalid_argument("ERR: Invalid Option2 At phoneNum");
 				return false;
 			}
 		}
@@ -113,7 +113,7 @@ public:
 				filter = Filter(Filter::Column::BIRTH_DAY, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: Invalid Option2 At birthday");
+				// throw invalid_argument("ERR: Invalid Option2 At birthday");
 				return false;
 			}
 		}
