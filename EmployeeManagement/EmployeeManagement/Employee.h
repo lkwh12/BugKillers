@@ -41,6 +41,7 @@ public:
 	Employee(string employeeNum, Name name, PhoneNum phoneNum, BirthDay birthday, string cl, string certi) :
 		employeeNum_(employeeNum), name_(name), phoneNum_(phoneNum), birthday_(birthday), cl_(cl), certi_(certi)
 	{}
+	Employee(const Employee& o) : Employee(o.employeeNum_, o.name_, o.phoneNum_, o.birthday_, o.cl_, o.certi_) { }
 
 	string employeeNum_;
 	Name name_;

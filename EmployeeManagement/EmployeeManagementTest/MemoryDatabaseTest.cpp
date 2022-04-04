@@ -10,6 +10,6 @@ TEST(MemoryDatabaseTest, AddToDatabase) {
 					BirthDay("2000", "01", "01"),
 					"CL1",
 					"ADV" };
-	auto ret = db.insert(e1);
-	EXPECT_TRUE(true); // TODO: fix me
+	EXPECT_TRUE(db.insert(e1));
+	EXPECT_FALSE(db.insert(e1));
 }
