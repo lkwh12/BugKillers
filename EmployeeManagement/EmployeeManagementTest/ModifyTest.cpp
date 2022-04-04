@@ -27,7 +27,7 @@ namespace {
         strCommand.push_back("MOD, , , ,name,VXIHXOTH JHOP,name,TWU QSOLT");
         strCommand.push_back("MOD,-p, , ,name,TWU QSOLT,name,BMU MPOSXU");
         strCommand.push_back("MOD,-p,-f, ,name,BMU,phoneNum,010-6672-7186");
-        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,birthday,780918");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,birthday,19780918");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employeeNum,12121212");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,cl,CL4");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,certi,EX");
@@ -56,8 +56,8 @@ namespace {
         input = pParser->parseLine(strCommand.at(3));
         shared_ptr<Mod> pModModule3 = make_shared<Mod>(input);
         EXPECT_TRUE(pModModule3->doModify(DataBase) == true);
-        EXPECT_TRUE(DataBase.at(0)->birthday_.birthDay == "780918");
-        EXPECT_TRUE(DataBase.at(0)->birthday_.year == "78");
+        EXPECT_TRUE(DataBase.at(0)->birthday_.birthDay == "19780918");
+        EXPECT_TRUE(DataBase.at(0)->birthday_.year == "1978");
         EXPECT_TRUE(DataBase.at(0)->birthday_.month == "09");
         EXPECT_TRUE(DataBase.at(0)->birthday_.day == "18");
 

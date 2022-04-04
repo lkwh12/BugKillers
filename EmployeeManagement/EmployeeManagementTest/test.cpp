@@ -10,7 +10,9 @@ static bool checkFileEQ(FileIO& fileDb, FileIO& fileQuery) {
 	vector<string> stringQuery = fileQuery.readLines();
 	if (stringDb.size() != stringQuery.size()) return false;
 	for (int i = 0; i < stringDb.size(); i++) {
-		if (strcmp(stringDb[i].c_str(), stringQuery[i].c_str()) != 0) return false;
+		if (strcmp(stringDb[i].c_str(), stringQuery[i].c_str()) != 0) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -35,7 +37,7 @@ TEST(TestCaseName, FullScenarioTest) {
 		Input input = parser.parseLine(inputLine);
 		logger.setPrintDetail(input.getFirstOption() == "-p");
 		shared_ptr<ICommand> cmd = commandFactory.createCommand(input);
-		//cmd->execute(DB, logger);
+		cmd->execute(DB, logger);
 	}
 
 	inputFile.close();
@@ -49,5 +51,5 @@ TEST(TestCaseName, FullScenarioTest) {
 	dbFile.close();
 	queryFile.close();
 
-	EXPECT_EQ(true, true); // TODO: must be tested EXPECT_EQ(ret, true);
+	EXPECT_EQ(true, ret);
 }

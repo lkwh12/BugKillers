@@ -40,7 +40,7 @@ static std::function<bool(std::pair<std::string, std::shared_ptr<Employee>>)> ge
 
 static std::string adjustKey(const std::string key) {
 	// if (key.length() != 8) return key;
-	int yr = key.at(0) * 10 + key.at(1);
+	int yr = (key.at(0) - '0') * 10 + (key.at(1) - '0');
 	if (69 <= yr) return "19" + key;
 	return "20" + key;
 }

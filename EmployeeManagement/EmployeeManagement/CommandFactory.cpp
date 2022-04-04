@@ -6,11 +6,11 @@ shared_ptr<ICommand> CommandFactory::createCommand(Input input) {
 		return result;
 	}
 	else if (input.getCommand() == "DEL") {
-		shared_ptr<ICommand> result = nullptr; // new DelCommand(input)
+		shared_ptr<ICommand> result = make_shared<Del>(input);
 		return result;
 	}
 	else if (input.getCommand() == "MOD") {
-		shared_ptr<ICommand> result = nullptr; // new ModCommand(input)
+		shared_ptr<ICommand> result = make_shared<Mod>(input);
 		return result;
 	}
 	else if (input.getCommand() == "SCH") {
