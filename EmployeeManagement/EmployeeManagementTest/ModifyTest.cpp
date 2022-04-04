@@ -28,7 +28,7 @@ namespace {
         strCommand.push_back("MOD,-p, , ,name,TWU QSOLT,name,BMU MPOSXU");
         strCommand.push_back("MOD,-p,-f, ,name,BMU,phoneNum,010-6672-7186");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,birthday,780918");
-        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employNum,12121212");
+        strCommand.push_back("MOD, , , ,name,BMU MPOSXU,employeeNum,12121212");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,cl,CL4");
         strCommand.push_back("MOD, , , ,name,BMU MPOSXU,certi,EX");
 
