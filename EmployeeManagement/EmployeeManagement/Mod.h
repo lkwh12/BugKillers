@@ -39,7 +39,7 @@ public:
 			modifyCerti(searchResult, payload.at(3));
 		}
 		else {
-			throw invalid_argument("ERR: Invalid Option0 Type");
+			// throw invalid_argument("ERR: Invalid Option0 Type");
 			return false;
 		}
 
@@ -122,13 +122,13 @@ public:
 				filter = Filter(Filter::Column::CERTI, payload.at(1));
 			}
 			else {
-				throw invalid_argument("ERR: cl Can Not Have Option2");
+				// throw invalid_argument("ERR: cl Can Not Have Option2");
 				return false;
 			}
 		}
 		else
 		{
-			throw invalid_argument("ERR: Invalid Condition Column Type");
+			// throw invalid_argument("ERR: Invalid Condition Column Type");
 			return false;
 		}
 
