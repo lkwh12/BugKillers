@@ -19,5 +19,13 @@ std::vector<std::shared_ptr<Employee>> MemoryDatabase::query(const Filter& filte
 }
 
 int MemoryDatabase::remove(std::vector<std::string> employeeNumbers) {
-	return 0;
+	int cnt = 0;
+	for (auto& key : employeeNumbers) {
+		auto it = map_.find(key);
+		if (it != map_.end()) {
+			map_.erase(it);
+			cnt++;
+		}
+	}
+	return cnt;
 }
