@@ -101,7 +101,7 @@ public:
 		Filter filter = filterConverter_.getFilter(input_);
 
 		if (!checkSearchExcetion()) {
-	        return false;
+			return false;
 		}
 
 		QUEARY_RESULT queryResult = db.query(filter);
