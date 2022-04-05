@@ -3,8 +3,21 @@
 
 using namespace std;
 
-TEST(TestCaseName, ParserTokenizeAddTest) {
-	Parser* pParser = new Parser();
+class ParserTest : public ::testing::Test {
+protected:
+	void SetUp() override {
+		pParser = new Parser();
+	}
+
+	void TearDown() override {
+		delete pParser;
+	}
+
+public:
+	Parser* pParser;
+};
+
+TEST_F(ParserTest, ParserTokenizeAddTest) {
 	const string sample = "ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV";
 	vector<string> result = pParser->tokenize(sample);
 
@@ -18,11 +31,9 @@ TEST(TestCaseName, ParserTokenizeAddTest) {
 	EXPECT_STREQ(result[7].c_str(), "010-3112-2609");
 	EXPECT_STREQ(result[8].c_str(), "19771211");
 	EXPECT_STREQ(result[9].c_str(), "ADV");
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserTokenizeModifyTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserTokenizeModifyTest) {
 	const string sample = "MOD,-p, , ,name,FB NTAWR,birthday,20050520";
 	vector<string> result = pParser->tokenize(sample);
 
@@ -34,11 +45,9 @@ TEST(TestCaseName, ParserTokenizeModifyTest) {
 	EXPECT_STREQ(result[5].c_str(), "FB NTAWR");
 	EXPECT_STREQ(result[6].c_str(), "birthday");
 	EXPECT_STREQ(result[7].c_str(), "20050520");
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserTokenizeSearchTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserTokenizeSearchTest) {
 	const string sample = "SCH,-p,-y, ,birthday,2003";
 	vector<string> result = pParser->tokenize(sample);
 
@@ -48,11 +57,9 @@ TEST(TestCaseName, ParserTokenizeSearchTest) {
 	EXPECT_STREQ(result[3].c_str(), " ");
 	EXPECT_STREQ(result[4].c_str(), "birthday");
 	EXPECT_STREQ(result[5].c_str(), "2003");
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserTokenizeDeleteTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserTokenizeDeleteTest) {
 	const string sample = "DEL,-p,-l, ,name,MPOSXU";
 	vector<string> result = pParser->tokenize(sample);
 
@@ -62,11 +69,9 @@ TEST(TestCaseName, ParserTokenizeDeleteTest) {
 	EXPECT_STREQ(result[3].c_str(), " ");
 	EXPECT_STREQ(result[4].c_str(), "name");
 	EXPECT_STREQ(result[5].c_str(), "MPOSXU");
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserAddTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserAddTest) {
 	const string sample = "ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV";
 	Input result = pParser->parseLine(sample);
 
@@ -80,12 +85,9 @@ TEST(TestCaseName, ParserAddTest) {
 	EXPECT_STREQ(result.getPayload()[4].c_str(), "19771211");
 	EXPECT_STREQ(result.getPayload()[5].c_str(), "ADV");
 	EXPECT_EQ(result.getPayload().size(), 6);
-
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserModifyTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserModifyTest) {
 	const string sample = "MOD,-p, , ,name,FB NTAWR,birthday,20050520";
 	Input result = pParser->parseLine(sample);
 
@@ -97,12 +99,9 @@ TEST(TestCaseName, ParserModifyTest) {
 	EXPECT_STREQ(result.getPayload()[2].c_str(), "birthday");
 	EXPECT_STREQ(result.getPayload()[3].c_str(), "20050520");
 	EXPECT_EQ(result.getPayload().size(), 4);
-
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserSearchTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserSearchTest) {
 	const string sample = "SCH,-p,-y, ,birthday,2003";
 	Input result = pParser->parseLine(sample);
 
@@ -112,12 +111,9 @@ TEST(TestCaseName, ParserSearchTest) {
 	EXPECT_STREQ(result.getPayload()[0].c_str(), "birthday");
 	EXPECT_STREQ(result.getPayload()[1].c_str(), "2003");
 	EXPECT_EQ(result.getPayload().size(), 2);
-
-	delete pParser;
 }
 
-TEST(TestCaseName, ParserDeleteTest) {
-	Parser* pParser = new Parser();
+TEST_F(ParserTest, ParserDeleteTest) {
 	const string sample = "DEL,-p,-l, ,name,MPOSXU";
 	Input result = pParser->parseLine(sample);
 
@@ -127,6 +123,4 @@ TEST(TestCaseName, ParserDeleteTest) {
 	EXPECT_STREQ(result.getPayload()[0].c_str(), "name");
 	EXPECT_STREQ(result.getPayload()[1].c_str(), "MPOSXU");
 	EXPECT_EQ(result.getPayload().size(), 2);
-
-	delete pParser;
 }
