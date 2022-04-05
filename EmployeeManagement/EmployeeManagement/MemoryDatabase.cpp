@@ -39,7 +39,6 @@ static std::function<bool(std::pair<std::string, std::shared_ptr<Employee>>)> ge
 }
 
 static std::string adjustKey(const std::string key) {
-	// if (key.length() != 8) return key;
 	int yr = (key.at(0) - '0') * 10 + (key.at(1) - '0');
 	if (69 <= yr) return "19" + key;
 	return "20" + key;
@@ -58,7 +57,7 @@ bool MemoryDatabase::insert(const Employee& employee) {
 
 std::vector<std::shared_ptr<Employee>> MemoryDatabase::query(const Filter& filter) {
 	std::vector<shared_ptr<Employee>> list;
-	// for employee number
+
 	if (filter.getColumn() == Filter::Column::EMPLOYEE_NUM) {
 		const std::string adjustedKey = adjustKey(filter.getValue());
 		auto it = map_.find(adjustedKey);

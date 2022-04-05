@@ -40,7 +40,6 @@ namespace {
             initCommands.push_back("ADD, , , ,11109136,QKAHCEX LTODDO,CL4,010-2627-8566,19640130,PRO");
             initCommands.push_back("ADD, , , ,05101762,VCUHLE HMU,CL4,010-3988-9289,20030819,PRO");
         }
-        // common data
         vector<shared_ptr<Employee>> DataBase;
         shared_ptr<Parser> pParser;
         vector<string> initCommands;
