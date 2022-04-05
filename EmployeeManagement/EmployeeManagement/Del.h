@@ -3,19 +3,16 @@
 #include "ICommand.h"
 #include "FilterConverter.h"
 #include "Input.h"
+#include "Sch.h"
 
 using namespace std;
 
-class Del : public ICommand {
+class Del : public Sch {
 public:
-	Del(const Input& input_) : input(input_) {}
+	Del(const Input& input_) : Sch(input_), input(input_) {}
 	virtual vector<shared_ptr<Employee>> execute(IDatabase& db, ILogger& logger) override {
-		auto result = db.query(getFilter());
-	
-		logger.dump(input.getCommand(), result);
-		
+		vector<shared_ptr<Employee>> result = Sch::execute(db, logger);
 		db.remove(getEmployeeNumList(result));
-
 		return result;
 	}
 

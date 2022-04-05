@@ -4,25 +4,19 @@
 #include "Filter.h"
 #include "Input.h"
 #include "FilterConverter.h"
+#include "Sch.h"
 
 using namespace std;
 
-class Mod : public ICommand {
+class Mod : public Sch {
 public:
-	Mod(const Input& input) : input_(input) {
+	Mod(const Input& input) : Sch(input), input_(input) {
 
 	}
 
 	virtual vector<shared_ptr<Employee>> execute(IDatabase& db, ILogger& logger) override {
-
-		Filter filter = filterConverter_.getFilter(input_);
-
-		vector<shared_ptr<Employee>> queryResult = db.query(filter);
-
-		logger.dump(input_.getCommand(), queryResult);
-
+		vector<shared_ptr<Employee>> queryResult = Sch::execute(db, logger);
 		doModify(queryResult);
-
 		return queryResult;
 	}
 
