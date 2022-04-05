@@ -36,7 +36,6 @@ public:
 	MemoryDatabase db;
 	vector<Employee> Database;
 	Parser parser;
-	FilterConverter filterConverter;
 };
 
 // name, phone, birth
@@ -49,18 +48,15 @@ TEST_F(DeleteTest, TestNoOption)
 
 	// DB[0] deleted
 	Del delCommand0(parser.parseLine(cmds[0]));
-	Filter filter0 = filterConverter.getFilter(parser.parseLine(cmds[0]));
-	EXPECT_EQ(1, delCommand0.deleteById(db, filter0));
+	EXPECT_EQ(1, delCommand0.getDeleteResult(db));
 
 	// DB[2] deleted
 	Del delCommand1(parser.parseLine(cmds[1]));
-	Filter filter1 = filterConverter.getFilter(parser.parseLine(cmds[1]));
-	EXPECT_EQ(1, delCommand1.deleteByCl(db, filter1));
+	EXPECT_EQ(1, delCommand1.getDeleteResult(db));
 
 	// DB[1] deleted
 	Del delCommand2(parser.parseLine(cmds[2]));
-	Filter filter2 = filterConverter.getFilter(parser.parseLine(cmds[2]));
-	EXPECT_EQ(1, delCommand2.deleteByCl(db, filter2));
+	EXPECT_EQ(1, delCommand2.getDeleteResult(db));
 }
 
 // name, phone, birth
@@ -73,18 +69,15 @@ TEST_F(DeleteTest, TestName)
 
 	// DB[1] deleted
 	Del delCommand0(parser.parseLine(cmds[0]));
-	Filter filter0 = filterConverter.getFilter(parser.parseLine(cmds[0]));
-	EXPECT_EQ(1, delCommand0.deleteByName(db, filter0));
+	EXPECT_EQ(1, delCommand0.getDeleteResult(db));
 
 	// DB[0], DB[2] deleted
 	Del delCommand1(parser.parseLine(cmds[1]));
-	Filter filter1 = filterConverter.getFilter(parser.parseLine(cmds[1]));
-	EXPECT_EQ(2, delCommand1.deleteByName(db, filter1));
+	EXPECT_EQ(2, delCommand1.getDeleteResult(db));
 
 	// Nothing
 	Del delCommand2(parser.parseLine(cmds[2]));
-	Filter filter2 = filterConverter.getFilter(parser.parseLine(cmds[2]));
-	EXPECT_EQ(0, delCommand1.deleteByName(db, filter2));
+	EXPECT_EQ(0, delCommand1.getDeleteResult(db));
 }
 
 TEST_F(DeleteTest, TestPhone)
@@ -96,19 +89,16 @@ TEST_F(DeleteTest, TestPhone)
 
 	// DB[1] deleted
 	Del delCommand0(parser.parseLine(cmds[0]));
-	Filter filter0 = filterConverter.getFilter(parser.parseLine(cmds[0]));
-	EXPECT_EQ(1, delCommand0.deleteByPhone(db, filter0));
+	EXPECT_EQ(1, delCommand0.getDeleteResult(db));
 
 	// DB[0], DB[2] deleted
 	Del delCommand1(parser.parseLine(cmds[1]));
-	Filter filter1 = filterConverter.getFilter(parser.parseLine(cmds[1]));
-	EXPECT_EQ(2, delCommand1.deleteByPhone(db, filter1));
+	EXPECT_EQ(2, delCommand1.getDeleteResult(db));
 
 	// DB[0] deleted
 	db.insert(Database[0]);
 	Del delCommand2(parser.parseLine(cmds[2]));
-	Filter filter2 = filterConverter.getFilter(parser.parseLine(cmds[2]));
-	EXPECT_EQ(1, delCommand1.deleteByName(db, filter2));
+	EXPECT_EQ(1, delCommand1.getDeleteResult(db));
 }
 
 TEST_F(DeleteTest, TestBirth)
@@ -121,24 +111,20 @@ TEST_F(DeleteTest, TestBirth)
 
 	// DB[1], DB[2] deleted
 	Del delCommand0(parser.parseLine(cmds[0]));
-	Filter filter0 = filterConverter.getFilter(parser.parseLine(cmds[0]));
-	EXPECT_EQ(2, delCommand0.deleteByBirth(db, filter0));
+	EXPECT_EQ(2, delCommand0.getDeleteResult(db));
 
 	// DB[0] deleted
 	Del delCommand1(parser.parseLine(cmds[1]));
-	Filter filter1 = filterConverter.getFilter(parser.parseLine(cmds[1]));
-	EXPECT_EQ(1, delCommand1.deleteByBirth(db, filter1));
+	EXPECT_EQ(1, delCommand1.getDeleteResult(db));
 
 	for (int i = 0; i < 3; i++)
 		db.insert(Database[i]);
 	// DB[0], DB[2] deleted
 	Del delCommand2(parser.parseLine(cmds[2]));
-	Filter filter2 = filterConverter.getFilter(parser.parseLine(cmds[2]));
-	EXPECT_EQ(2, delCommand1.deleteByBirth(db, filter2));
+	EXPECT_EQ(2, delCommand2.getDeleteResult(db));
 
 	// DB[1] deleted
 	Del delCommand3(parser.parseLine(cmds[3]));
-	Filter filter3 = filterConverter.getFilter(parser.parseLine(cmds[3]));
-	EXPECT_EQ(1, delCommand1.deleteByBirth(db, filter3));
+	EXPECT_EQ(1, delCommand3.getDeleteResult(db));
 }
 
