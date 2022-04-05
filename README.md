@@ -1,7 +1,9 @@
 # BugKillers
 초기 설계
-
 ![초기설계](https://user-images.githubusercontent.com/1198553/161181400-eb852bab-c2ab-4d91-8d88-833854dd9f3a.png)
+----
+Refactoring 전 클래스 다이어그램
+![Before Refactoroing](https://user-images.githubusercontent.com/1198553/161678823-c76ea920-00e4-4037-b72b-478545b3b052.png)
 
 ## Contributors
 @lkwh12
