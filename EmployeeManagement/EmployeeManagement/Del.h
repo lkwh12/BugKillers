@@ -9,11 +9,10 @@ using namespace std;
 class Del : public ICommand {
 public:
 	Del(const Input& input_) : input(input_) {}
-	virtual bool execute(IDatabase& db, ILogger& logger) 
-	{
+	virtual bool execute(IDatabase& db, ILogger& logger) override {
 		auto result = db.query(getFilter());
 	
-		logger.dump("DEL", result);
+		logger.dump(input.getCommand(), result);
 		
 		db.remove(getEmployeeNumList(result));
 

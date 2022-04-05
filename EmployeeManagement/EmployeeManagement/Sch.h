@@ -8,11 +8,11 @@
 class Sch : public ICommand {
 public:
 	Sch(const Input& input_) : input(input_) {}
-	virtual bool execute(IDatabase& db, ILogger& logger) {
+	virtual bool execute(IDatabase& db, ILogger& logger) override {
 		FilterConverter filterConverter;
 
  		auto outputList =  db.query(filterConverter.getFilter(input));
-		logger.dump("SCH", outputList);
+		logger.dump(input.getCommand(), outputList);
 
 		return true;
 	}
