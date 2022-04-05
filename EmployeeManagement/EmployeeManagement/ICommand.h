@@ -4,5 +4,5 @@
 #include "ILogger.h"
 
 interface ICommand {
-	virtual bool execute(IDatabase& db, ILogger& logger) = 0;
+	virtual vector<shared_ptr<Employee>> execute(IDatabase& db, ILogger& logger) = 0;
 };

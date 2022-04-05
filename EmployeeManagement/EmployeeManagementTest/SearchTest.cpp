@@ -55,7 +55,8 @@ TEST_F(SearchTest, BasicSearchTest) {
 	Input input = parser.parseLine("SCH,-p, , ,certi,PRO");
 	Sch schCommand1(input);
 	fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-	EXPECT_EQ(schCommand1.execute(db, fileLogger), true);
+	vector<shared_ptr<Employee>> result = schCommand1.execute(db, fileLogger);
+	EXPECT_EQ((int)result.size(), 12);
 
 	outputfile.close();
 }
@@ -76,7 +77,8 @@ TEST_F(SearchTest, NoOptionSearchTest) {
 	Input input = parser.parseLine("SCH, , , ,certi,ADV");
 	Sch schCommand1(input);
 	fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-	EXPECT_EQ(schCommand1.execute(db, fileLogger), true);
+	vector<shared_ptr<Employee>> result = schCommand1.execute(db, fileLogger);
+	EXPECT_EQ((int)result.size(), 8);
 
 	outputfile.close();
 }
@@ -98,7 +100,8 @@ TEST_F(SearchTest, SecondOptionSearchTest) {
 	Input input = parser.parseLine("SCH, ,-m, ,birthday,09");
 	Sch schCommand1(input);
 	fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-	EXPECT_EQ(schCommand1.execute(db, fileLogger), true);
+	vector<shared_ptr<Employee>> result = schCommand1.execute(db, fileLogger);
+	EXPECT_EQ((int)result.size(), 1);
 
 	outputfile.close();
 }

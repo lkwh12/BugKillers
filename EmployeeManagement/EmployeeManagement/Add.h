@@ -17,14 +17,13 @@ enum Format {
 class Add : public ICommand {
 public:
 	Add(const Input& input_) : input(input_) {}
-	virtual bool execute(IDatabase& db, ILogger& logger) override {
-		bool ret = true;
+	virtual vector<shared_ptr<Employee>> execute(IDatabase& db, ILogger& logger) override {
+		vector<shared_ptr<Employee>> ret = { };
 
-		ret = checkException(input.getPayload());
-		if (ret == false) return false;
+		if (checkException(input.getPayload()) == false) return ret;
 
-		Employee e = makeEmployeeData(input.getPayload());
-		ret = db.insert(e);
+		shared_ptr<Employee> pEmployee = make_shared<Employee>(makeEmployeeData(input.getPayload()));
+		if (db.insert(*pEmployee)) ret.emplace_back(pEmployee);
 
 		return ret;
 	}

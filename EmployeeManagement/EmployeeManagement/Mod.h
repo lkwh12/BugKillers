@@ -13,7 +13,7 @@ public:
 
 	}
 
-	virtual bool execute(IDatabase& db, ILogger& logger) override {
+	virtual vector<shared_ptr<Employee>> execute(IDatabase& db, ILogger& logger) override {
 
 		Filter filter = filterConverter_.getFilter(input_);
 
@@ -23,7 +23,7 @@ public:
 
 		doModify(queryResult);
 
-		return true;
+		return queryResult;
 	}
 
 	bool doModify(vector<shared_ptr<Employee>>& searchResult) {
