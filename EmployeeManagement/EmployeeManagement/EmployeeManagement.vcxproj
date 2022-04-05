@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Add.h" />
     <ClInclude Include="CommandFactory.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Del.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileIO.h" />

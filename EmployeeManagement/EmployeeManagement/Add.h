@@ -3,15 +3,16 @@
 #include "ICommand.h"
 #include "Filter.h"
 #include "Input.h"
+#include "Constants.h"
 #include <sstream>
 
-enum Format {
-	LengthEmpNo = 8,
-	ChunkCountName = 2,
-	LengthName = 15,
-	ChunkCountPhoneNum = 3,
-	LengthPhoneNum = 13,
-	LengthBirthday = 8
+enum class AddPayloadIndex {
+	EMPLOYNUM,
+	NAME,
+	CL,
+	PHONENUM,
+	BIRTHDAY,
+	CERTI,
 };
 
 class Add : public ICommand {
@@ -42,63 +43,79 @@ public:
 	}
 
 	bool checkException(const vector<string>& payloads) {
-		if (payloads[0].empty() || payloads[0].length() != LengthEmpNo) {
+		// Check Employee No
+		if (payloads[(int)AddPayloadIndex::EMPLOYNUM].empty() || payloads[(int)AddPayloadIndex::EMPLOYNUM].length() != LEN_EMP_NO) {
+			//throw invalid_argument("ERROR:: invalid Employee No format!");
 			return false;
 		}
 
-		if (payloads[1].empty() || payloads[1].length() > LengthName) {
+		// Check Name
+		if (payloads[(int)AddPayloadIndex::NAME].empty() || payloads[(int)AddPayloadIndex::NAME].length() > LEN_EMP_NAME) {
+			//throw invalid_argument("ERROR:: invalid Name format!");
 			return false;
 		}
 
-		vector<string> names = split(payloads[1], ' ');
-		if (names.size() != ChunkCountName) {
+		vector<string> names = split(payloads[(int)AddPayloadIndex::NAME], ' ');
+		if (names.size() != CHUNK_CNT_NAME) {
+			//throw invalid_argument("ERROR:: invalid Name format!");
 			return false;
 		}
 
-		if (payloads[3].empty() || payloads[3].length() != LengthPhoneNum) {
+		// Check Phone Number
+		if (payloads[(int)AddPayloadIndex::PHONENUM].empty() || payloads[(int)AddPayloadIndex::PHONENUM].length() != LEN_EMP_PHONE_NUMBER) {
+			//throw invalid_argument("ERROR:: invalid Phone Number format!");
 			return false;
 		}
-		vector<string> phoneNums = split(payloads[3], '-');
-		if (phoneNums.size() != ChunkCountPhoneNum) {
+		vector<string> phoneNums = split(payloads[(int)AddPayloadIndex::PHONENUM], '-');
+		if (phoneNums.size() != CHUNK_CNT_PHONE_NUMBER) {
+			//throw invalid_argument("ERROR:: invalid Phone Number format!");
 			return false;
 		}
 		for (const auto& numbers : phoneNums) {
 			for (const auto& num : numbers) {
 				if (num > '9' || num < '0') {
+					//throw invalid_argument("ERROR:: invalid Phone Number format!");
 					return false;
 				}
 			}
 		}
 
-		if (payloads[4].empty() || payloads[4].length() != LengthBirthday) {
+		// Check Birthday
+		if (payloads[(int)AddPayloadIndex::BIRTHDAY].empty() || payloads[(int)AddPayloadIndex::BIRTHDAY].length() != LEN_EMP_BIRTHDAY) {
+			//throw invalid_argument("ERROR:: invalid birthday format!");
 			return false;
 		}
-		for (const auto& num : payloads[4]) {
+		for (const auto& num : payloads[(int)AddPayloadIndex::BIRTHDAY]) {
 			if (num > '9' || num < '0') {
+				//throw invalid_argument("ERROR:: invalid birthday format!");
 				return false;
 			}
 		}
 
-		if (payloads[2] != "CL1" && payloads[2] != "CL2" &&
-			payloads[2] != "CL3" && payloads[2] != "CL4") {
+		// Check CL
+		if (payloads[(int)AddPayloadIndex::CL] != "CL1" && payloads[(int)AddPayloadIndex::CL] != "CL2" &&
+			payloads[(int)AddPayloadIndex::CL] != "CL3" && payloads[(int)AddPayloadIndex::CL] != "CL4") {
+			//throw invalid_argument("ERROR:: invalid CL format!");
 			return false;
 		}
 
-		if (payloads[5] != "ADV" && payloads[5] != "PRO" && payloads[5] != "EX") {
+		// Check Certi
+		if (payloads[(int)AddPayloadIndex::CERTI] != "ADV" && payloads[(int)AddPayloadIndex::CERTI] != "PRO" && payloads[(int)AddPayloadIndex::CERTI] != "EX") {
+			//throw invalid_argument("ERROR:: invalid Certi format!");
 			return false;
 		}
 		return true;
 	}
 
 	Employee makeEmployeeData(const vector<string>& payloads) {
-		auto names = split(payloads[1], ' ');
-		auto phoneNumbers = split(payloads[3], '-');
+		auto names = split(payloads[(int)AddPayloadIndex::NAME], ' ');
+		auto phoneNumbers = split(payloads[(int)AddPayloadIndex::PHONENUM], '-');
 
-		return Employee(payloads[0],
+		return Employee(payloads[(int)AddPayloadIndex::EMPLOYNUM],
 			Name(names[0], names[1]),
 			PhoneNum(phoneNumbers[1], phoneNumbers[2]),
-			BirthDay(payloads[4].substr(0, 4), payloads[4].substr(4, 2), payloads[4].substr(6, 2)),
-			payloads[2], payloads[5]);
+			BirthDay(payloads[(int)AddPayloadIndex::BIRTHDAY].substr(0, 4), payloads[(int)AddPayloadIndex::BIRTHDAY].substr(4, 2), payloads[(int)AddPayloadIndex::BIRTHDAY].substr(6, 2)),
+			payloads[(int)AddPayloadIndex::CL], payloads[(int)AddPayloadIndex::CERTI]);
 	}
 
 private:
