@@ -124,3 +124,31 @@ TEST(MemoryDatabaseTest, Query) {
 	EXPECT_EQ(2, r1.size());
 	for (auto& r : r1) EXPECT_EQ(val, r->certi_);
 }
+
+TEST(MemoryDatabaseTest, Insert100K) {
+	MemoryDatabase db;
+	char emplyeeNumber[8 + 1];
+	char firstName[9 + 1], lastName[6 + 1];
+	char telMid[4 + 1], telLast[4 + 1];
+	char birthY[4 + 1], birthM[2 + 1], birthD[2 + 1];
+	char cl[3 + 1];
+	char* certis[] = { "ADV", "PRO", "EXP" };
+	for (int i = 0; i < 100'000; i++) {
+		std::snprintf(emplyeeNumber, sizeof(emplyeeNumber), "%2d%06d", i % 3 + 19, i % 3 == 0 ? i : 100000 - i);
+		std::snprintf(firstName, sizeof(firstName), "First%04d", 1 % 1000);
+		std::snprintf(lastName, sizeof(lastName), "Last%02d", i % 100);
+		std::snprintf(telMid, sizeof(telMid), "%04d", i % 10000);
+		std::snprintf(telLast, sizeof(telLast), "%04d", i % 10000);
+		std::snprintf(birthY, sizeof(birthY), "%04d", i % 140 + 1960);
+		std::snprintf(birthM, sizeof(birthM), "%02d", i % 12 + 1);
+		std::snprintf(birthD, sizeof(birthD), "%02d", i % 30 + 1);
+		std::snprintf(birthD, sizeof(birthD), "CL%d", i % 3 + 1);
+
+		EXPECT_TRUE(db.insert({ emplyeeNumber,
+						Name(firstName, lastName),
+						PhoneNum(telMid, telLast),
+						BirthDay(birthY, birthM, birthD),
+						cl,
+						certis[i%3] }));
+	}
+}
