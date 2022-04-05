@@ -1,7 +1,11 @@
 # BugKillers
-초기 설계
+[초기 설계]
 
 ![초기설계](https://user-images.githubusercontent.com/1198553/161181400-eb852bab-c2ab-4d91-8d88-833854dd9f3a.png)
+
+----
+[Release v1.0.0 설계 Class Diagram]
+![ClassDiagram_CRA](https://user-images.githubusercontent.com/1198553/161689972-cc926cb9-d304-4b23-ad21-b1305d2510b2.png)
 
 ## Contributors
 @lkwh12
