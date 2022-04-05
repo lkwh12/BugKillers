@@ -9,41 +9,41 @@ using namespace std;
 
 #define QUEARY_RESULT vector<shared_ptr<Employee>>
 
-constexpr auto MODIFY_COLUMN_INDEX = (2);
-constexpr auto MODIFY_CONTENTS_INDEX = (3);
+constexpr auto MODIFY_COLUMN_INDEX    = (2);
+constexpr auto MODIFY_CONTENTS_INDEX  = (3);
 
-constexpr auto FIRST_NAME_INDEX		= (0);
-constexpr auto LAST_NAME_INDEX		= (1);
-constexpr auto NAME_DELIMITER		= (' ');
+constexpr auto FIRST_NAME_INDEX	      = (0);
+constexpr auto LAST_NAME_INDEX        = (1);
+constexpr auto NAME_DELIMITER         = (' ');
 
-constexpr auto MIDDLE_PHONE_INDEX	= (1);
-constexpr auto LAST_PHONE_INDEX		= (2);
-constexpr auto PHONE_DELIMITER		= ('-');
+constexpr auto MIDDLE_PHONE_INDEX     = (1);
+constexpr auto LAST_PHONE_INDEX       = (2);
+constexpr auto PHONE_DELIMITER        = ('-');
 
-constexpr auto BIRTHDAT_YEAR_START_INDEX	= (0);
-constexpr auto BIRTHDAT_MONTH_START_INDEX	= (4);
-constexpr auto BIRTHDAT_DAY_START_INDEX		= (6);
-constexpr auto BIRTHDAT_YEAR_START_SIZE		= (4);
-constexpr auto BIRTHDAT_MONTH_START_SIZE	= (2);
-constexpr auto BIRTHDAT_DAY_START_SIZE		= (2);
+constexpr auto BIRTHDAT_YEAR_START_INDEX    = (0);
+constexpr auto BIRTHDAT_MONTH_START_INDEX   = (4);
+constexpr auto BIRTHDAT_DAY_START_INDEX     = (6);
+constexpr auto BIRTHDAT_YEAR_START_SIZE     = (4);
+constexpr auto BIRTHDAT_MONTH_START_SIZE    = (2);
+constexpr auto BIRTHDAT_DAY_START_SIZE      = (2);
 
-#define GET_YEAR_FROM_BIRTH(birth)			(birth.substr(BIRTHDAT_YEAR_START_INDEX, BIRTHDAT_YEAR_START_SIZE))   
-#define GET_MONTH_FROM_BIRTH(birth)			(birth.substr(BIRTHDAT_MONTH_START_INDEX, BIRTHDAT_MONTH_START_SIZE))
-#define GET_DAY_FROM_BIRTH(birth)			(birth.substr(BIRTHDAT_DAY_START_INDEX, BIRTHDAT_DAY_START_SIZE))
+#define GET_YEAR_FROM_BIRTH(birth)          (birth.substr(BIRTHDAT_YEAR_START_INDEX, BIRTHDAT_YEAR_START_SIZE))   
+#define GET_MONTH_FROM_BIRTH(birth)         (birth.substr(BIRTHDAT_MONTH_START_INDEX, BIRTHDAT_MONTH_START_SIZE))
+#define GET_DAY_FROM_BIRTH(birth)           (birth.substr(BIRTHDAT_DAY_START_INDEX, BIRTHDAT_DAY_START_SIZE))
 
-#define GET_FUNCTION_INDEX(modifyColumn)	(find(ColumnForFunction.begin(), ColumnForFunction.end(), modifyColumn) - ColumnForFunction.begin())
+#define GET_FUNCTION_INDEX(modifyColumn)    (find(ColumnForFunction.begin(), ColumnForFunction.end(), modifyColumn) - ColumnForFunction.begin())
 
 typedef void MODIFY(QUEARY_RESULT &, const string &);
 
 class Mod : public ICommand {
 public:
 	Mod(const Input& input) : input_(input) {
-		pModify[(int)Mod::FunctionIndex::E_EMPLOYNUM]	= &Mod::modifyEmployeeNum;
-		pModify[(int)Mod::FunctionIndex::E_NAME]		= &Mod::modifyName;
-		pModify[(int)Mod::FunctionIndex::E_PHONENUM]	= &Mod::modifyPhoneNum;
-		pModify[(int)Mod::FunctionIndex::E_BIRTHDAY]	= &Mod::modifyBirthDay;
-		pModify[(int)Mod::FunctionIndex::E_CL]			= &Mod::modifyCl;
-		pModify[(int)Mod::FunctionIndex::E_CERTI]		= &Mod::modifyCerti;
+		pModify[(int)Mod::FunctionIndex::E_EMPLOYNUM]   = &Mod::modifyEmployeeNum;
+		pModify[(int)Mod::FunctionIndex::E_NAME]        = &Mod::modifyName;
+		pModify[(int)Mod::FunctionIndex::E_PHONENUM]    = &Mod::modifyPhoneNum;
+		pModify[(int)Mod::FunctionIndex::E_BIRTHDAY]    = &Mod::modifyBirthDay;
+		pModify[(int)Mod::FunctionIndex::E_CL]          = &Mod::modifyCl;
+		pModify[(int)Mod::FunctionIndex::E_CERTI]       = &Mod::modifyCerti;
 	}
 
 	virtual bool execute(IDatabase& db, ILogger& logger) {
