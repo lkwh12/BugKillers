@@ -4,7 +4,6 @@
 #include "Filter.h"
 #include "FilterConverter.h"
 #include "Input.h"
-#include "Constants.h"
 
 class Sch : public ICommand {
 public:
@@ -36,11 +35,11 @@ public:
 
 	bool checkException(const vector<string>& payloads) {
 
-		if (payloads[0] == "employeeNum" && payloads[1].length() != LEN_EMP_NO) {
+		if (payloads[0] == "employeeNum" && payloads[1].length() != Employee::LEN_EMP_NO) {
 			return false;
 		}
 
-		if (payloads[0] == "name" && payloads[1].length() > LEN_EMP_NAME) {
+		if (payloads[0] == "name" && payloads[1].length() > Name::LEN_EMP_NAME) {
 			return false;
 		}
 
@@ -50,17 +49,17 @@ public:
 		}
 
 		if (payloads[0] == "phoneNum" &&
-			(payloads[1].length() != LEN_EMP_PHONE_NUMBER &&
-				payloads[1].length() != LEN_EMP_PHONE_NUMBER_MID &&
-				payloads[1].length() != LEN_EMP_PHONE_NUMBER_LAST)) {
+			(payloads[1].length() != PhoneNum::LEN_EMP_PHONE_NUMBER &&
+				payloads[1].length() != PhoneNum::LEN_EMP_PHONE_NUMBER_MID &&
+				payloads[1].length() != PhoneNum::LEN_EMP_PHONE_NUMBER_LAST)) {
 			return false;
 		}
 
 		if (payloads[0] == "birthday" &&
-			(payloads[1].length() != LEN_EMP_BIRTHDAY_DAY &&
-				payloads[1].length() != LEN_EMP_BIRTHDAY_YEAR &&
-				payloads[1].length() != LEN_EMP_BIRTHDAY_MONTH &&
-				payloads[1].length() != LEN_EMP_BIRTHDAY_DAY)) {
+			(payloads[1].length() != BirthDay::LEN_EMP_BIRTHDAY_DAY &&
+				payloads[1].length() != BirthDay::LEN_EMP_BIRTHDAY_YEAR &&
+				payloads[1].length() != BirthDay::LEN_EMP_BIRTHDAY_MONTH &&
+				payloads[1].length() != BirthDay::LEN_EMP_BIRTHDAY_DAY)) {
 			return false;
 		}
 

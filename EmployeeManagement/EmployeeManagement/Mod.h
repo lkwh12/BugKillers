@@ -29,19 +29,6 @@ constexpr auto BIRTHDAY_YEAR_START_SIZE     = (4);
 constexpr auto BIRTHDAY_MONTH_START_SIZE    = (2);
 constexpr auto BIRTHDAY_DAY_START_SIZE      = (2);
 
-constexpr auto EMPLOYEENUM_LENGTH           = (8);
-constexpr auto NAME_CHUNK_SIZE              = (2);
-constexpr auto NAME_LENGTH                  = (15);
-constexpr auto PHONENUM_CHUNK_SIZE          = (3);
-constexpr auto PHONENUM_LENGTH              = (13);
-constexpr auto PHONENUM_MIDDLE_LENGTH       = (4);
-constexpr auto PHONENUM_LAST_LENGTH         = (4);
-constexpr auto BIRTHDAY_LENGTH              = (8);
-constexpr auto BIRTHDAY_YEAR_LENGTH         = (4);
-constexpr auto BIRTHDAY_MONTH_LENGTH        = (2);
-constexpr auto BIRTHDAY_DAY_LENGTH          = (2);
-
-
 #define GET_YEAR_FROM_BIRTH(birth)          (birth.substr(BIRTHDAY_YEAR_START_INDEX, BIRTHDAY_YEAR_START_SIZE))   
 #define GET_MONTH_FROM_BIRTH(birth)         (birth.substr(BIRTHDAY_MONTH_START_INDEX, BIRTHDAY_MONTH_START_SIZE))
 #define GET_DAY_FROM_BIRTH(birth)           (birth.substr(BIRTHDAY_DAY_START_INDEX, BIRTHDAY_DAY_START_SIZE))
@@ -49,23 +36,23 @@ constexpr auto BIRTHDAY_DAY_LENGTH          = (2);
 #define GET_FUNCTION_INDEX(modifyColumn)    (find(ColumnForFunction.begin(), ColumnForFunction.end(), modifyColumn) - ColumnForFunction.begin())
 
 #define VERIFY_COLUMN_EMPLOYEENUM(payloads, columnIndex, contentsIndex)     (payloads.at(columnIndex) == "employeeNum" && \
-                                                                             payloads.at(contentsIndex).length() != EMPLOYEENUM_LENGTH)
+                                                                             payloads.at(contentsIndex).length() != Employee::LEN_EMP_NO)
 #define VERIFY_COLUMN_NAME(payloads, columnIndex, contentsIndex)            (payloads.at(columnIndex) == "name" && \
-	                                                                         payloads.at(contentsIndex).length() > NAME_LENGTH)
+	                                                                         payloads.at(contentsIndex).length() > Name::LEN_EMP_NAME)
 #define VERIFY_COLUMN_CL(payloads, columnIndex, contentsIndex)              (payloads.at(columnIndex) == "cl" && \
                                                                                 (payloads.at(contentsIndex) != "CL1" && \
                                                                                  payloads.at(contentsIndex) != "CL2" && \
                                                                                  payloads.at(contentsIndex) != "CL3" && \
                                                                                  payloads.at(contentsIndex) != "CL4"))
 #define VERIFY_COLUMN_PHONENUM(payloads, columnIndex, contentsIndex)        (payloads.at(columnIndex) == "phoneNum" && \
-                                                                                 (payloads.at(contentsIndex).length() != PHONENUM_LENGTH && \
-                                                                                  payloads.at(contentsIndex).length() != PHONENUM_MIDDLE_LENGTH && \
-                                                                                  payloads.at(contentsIndex).length() != PHONENUM_LAST_LENGTH))
+                                                                                 (payloads.at(contentsIndex).length() != PhoneNum::LEN_EMP_PHONE_NUMBER && \
+                                                                                  payloads.at(contentsIndex).length() != PhoneNum::LEN_EMP_PHONE_NUMBER_MID && \
+                                                                                  payloads.at(contentsIndex).length() != PhoneNum::LEN_EMP_PHONE_NUMBER_LAST))
 #define VERIFY_COLUMN_BIRTHDAY(payloads, columnIndex, contentsIndex)        (payloads.at(columnIndex) == "birthday" && \
-                                                                                 (payloads.at(contentsIndex).length() != BIRTHDAY_LENGTH && \
-                                                                                  payloads.at(contentsIndex).length() != BIRTHDAY_YEAR_LENGTH && \
-                                                                                  payloads.at(contentsIndex).length() != BIRTHDAY_MONTH_LENGTH && \
-                                                                                  payloads.at(contentsIndex).length() != BIRTHDAY_DAY_LENGTH))
+                                                                                 (payloads.at(contentsIndex).length() != BirthDay::LEN_EMP_BIRTHDAY && \
+                                                                                  payloads.at(contentsIndex).length() != BirthDay::LEN_EMP_BIRTHDAY_YEAR && \
+                                                                                  payloads.at(contentsIndex).length() != BirthDay::LEN_EMP_BIRTHDAY_MONTH && \
+                                                                                  payloads.at(contentsIndex).length() != BirthDay::LEN_EMP_BIRTHDAY_DAY))
 #define VERIFY_COLUMN_CERTI(payloads, columnIndex, contentsIndex)           (payloads.at(columnIndex) == "certi" && \
                                                                                 (payloads.at(contentsIndex) != "ADV" && \
                                                                                  payloads.at(contentsIndex) != "PRO" && \

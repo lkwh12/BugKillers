@@ -3,7 +3,6 @@
 #include "ICommand.h"
 #include "FilterConverter.h"
 #include "Input.h"
-#include "Constants.h"
 
 class Del : public ICommand {
 public:
@@ -36,20 +35,20 @@ private:
 	{
 		const vector<string>& payloads = input.getPayload();
 
-		if (payloads[0] == "employeeNum" && payloads[1].length() != LEN_EMP_NO) {
+		if (payloads[0] == "employeeNum" && payloads[1].length() != Employee::LEN_EMP_NO) {
 			return false;
 		}
-		else if (payloads[0] == "name" && payloads[1].length() > LEN_EMP_NAME) {
+		else if (payloads[0] == "name" && payloads[1].length() > Name::LEN_EMP_NAME) {
 			return false;
 		}
 		else if (payloads[0] == "cl" &&
 			(payloads[1] != "CL1" && payloads[1] != "CL2" && payloads[1] != "CL3" && payloads[1] != "CL4")) {
 			return false;
 		}
-		else if (payloads[0] == "phoneNum" && payloads[1].length() != LEN_EMP_PHONE_NUMBER) {
+		else if (payloads[0] == "phoneNum" && payloads[1].length() != PhoneNum::LEN_EMP_PHONE_NUMBER) {
 			return false;
 		}
-		else if (payloads[0] == "birthday" && payloads[1].length() != LEN_EMP_BIRTHDAY) {
+		else if (payloads[0] == "birthday" && payloads[1].length() != BirthDay::LEN_EMP_BIRTHDAY) {
 			return false;
 		}
 		else if (payloads[0] == "certi" &&
