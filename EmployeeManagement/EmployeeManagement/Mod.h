@@ -102,7 +102,7 @@ public:
 
 		if (!checkSearchExcetion()) {
 	        return false;
-        }
+		}
 
 		QUEARY_RESULT queryResult = db.query(filter);
 
