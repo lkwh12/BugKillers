@@ -3,7 +3,7 @@
 #include "ICommand.h"
 #include "FilterConverter.h"
 #include "Input.h"
-#include "Add.h"
+#include "Constants.h"
 
 class Del : public ICommand {
 public:
@@ -13,9 +13,9 @@ public:
 			return false;
 		}
 		auto result = db.query(getFilter());
-	
+
 		logger.dump(input.getCommand(), result);
-		
+
 		db.remove(getEmployeeNumList(result));
 
 		return true;
@@ -35,24 +35,24 @@ private:
 	bool checkException()
 	{
 		const vector<string>& payloads = input.getPayload();
-		
-		if (payloads[0]=="employeeNum" && payloads[1].length() != LengthEmpNo) {
+
+		if (payloads[0] == "employeeNum" && payloads[1].length() != LEN_EMP_NO) {
 			return false;
 		}
-		else if (payloads[0] == "name" && payloads[1].length() > LengthName) {
+		else if (payloads[0] == "name" && payloads[1].length() > LEN_EMP_NAME) {
 			return false;
 		}
-		else if (payloads[0] == "cl" && 
+		else if (payloads[0] == "cl" &&
 			(payloads[1] != "CL1" && payloads[1] != "CL2" && payloads[1] != "CL3" && payloads[1] != "CL4")) {
 			return false;
 		}
-		else if (payloads[0] == "phoneNum" && payloads[1].length() != LengthPhoneNum) {
+		else if (payloads[0] == "phoneNum" && payloads[1].length() != LEN_EMP_PHONE_NUMBER) {
 			return false;
 		}
-		else if (payloads[0] == "birthday"&& payloads[1].length() != LengthBirthday) {
+		else if (payloads[0] == "birthday" && payloads[1].length() != LEN_EMP_BIRTHDAY) {
 			return false;
 		}
-		else if (payloads[0] == "certi" && 
+		else if (payloads[0] == "certi" &&
 			(payloads[1] != "ADV" && payloads[1] != "PRO" && payloads[1] != "EX")) {
 			return false;
 		}
