@@ -5,7 +5,7 @@
 
 ----
 [Release v1.0.0 설계 Class Diagram]
-![ClassDiagram_CRA](https://user-images.githubusercontent.com/1198553/161689972-cc926cb9-d304-4b23-ad21-b1305d2510b2.png)
+![ClassDiagram_CRA](https://user-images.githubusercontent.com/1198553/161869315-8da46143-abd6-489e-bc75-f12de4e96792.png)
 
 ## Contributors
 @lkwh12
