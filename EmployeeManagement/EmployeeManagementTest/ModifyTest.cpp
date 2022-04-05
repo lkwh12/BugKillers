@@ -40,6 +40,57 @@ namespace {
             initCommands.push_back("ADD, , , ,11109136,QKAHCEX LTODDO,CL4,010-2627-8566,19640130,PRO");
             initCommands.push_back("ADD, , , ,05101762,VCUHLE HMU,CL4,010-3988-9289,20030819,PRO");
         }
+
+        void doTest(vector<string>& strCommand, vector<string>& strExpectOutput) {
+            FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
+            MemoryDatabase db;
+            FileLogger fileLogger(outputfile);
+            Parser parser;
+
+            outputfile.open();
+
+            addEmployee(db, fileLogger, parser);
+
+            doModifyCmd(db, fileLogger, strCommand);
+
+            verifyResult(strExpectOutput);
+
+            outputfile.close();
+        }
+
+        void addEmployee(MemoryDatabase& db, FileLogger& fileLogger, Parser& parser) {
+            for (const auto& cmd : initCommands) {
+                Add addCommand(parser.parseLine(cmd));
+                addCommand.execute(db, fileLogger);
+            }
+        }
+
+        void doModifyCmd(MemoryDatabase& db, FileLogger& fileLogger, vector<string>& strCommand) {
+            Input input;
+            shared_ptr<Mod> pModModule;
+            for (auto& Command : strCommand) {
+                input = pParser->parseLine(Command);
+                pModModule = make_shared<Mod>(input);
+                fileLogger.setPrintDetail(input.getFirstOption() == "-p");
+                pModModule->execute(db, fileLogger);
+            }
+        }
+
+        void verifyResult(vector<string>& strExpectOutput) {
+            ifstream resultFile("../EmployeeManagement/modify_result.txt");
+            string outputLine;
+            vector<string> strResultOutput;
+            while (getline(resultFile, outputLine)) {
+                if (outputLine == "") continue;
+                strResultOutput.push_back(outputLine);
+            }
+
+            EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
+            for (register int index = 0; index < strExpectOutput.size(); index++) {
+                EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
+            }
+        }
+
         vector<shared_ptr<Employee>> DataBase;
         shared_ptr<Parser> pParser;
         vector<string> initCommands;
@@ -116,48 +167,7 @@ namespace {
         strExpectOutput.push_back("MOD,15123099,BMU MPOSXU,CL3,010-3112-2609,19771211,ADV");
         strExpectOutput.push_back("MOD,18117906,BMU MPOSXU,CL4,010-6672-7186,20030413,PRO");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule1->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule2 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule2->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(2));
-        shared_ptr<Mod> pModModule3 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule3->execute(db, fileLogger);
-
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 
 
@@ -170,42 +180,7 @@ namespace {
         strExpectOutput.push_back("MOD,1");
         strExpectOutput.push_back("MOD,1");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule0->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule1->execute(db, fileLogger);
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 
 
@@ -218,37 +193,7 @@ namespace {
         strExpectOutput.push_back("MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
         strExpectOutput.push_back("MOD,18115040,TTETHU HBO,CL3,010-4581-2050,20080718,ADV");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule0->execute(db, fileLogger);
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 
 
@@ -263,47 +208,7 @@ namespace {
         strExpectOutput.push_back("MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,PRO");
         strExpectOutput.push_back("MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,EX");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule0->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule1->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule2 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule2->execute(db, fileLogger);
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 
 
@@ -311,56 +216,15 @@ namespace {
         vector<string> strCommand;
         strCommand.push_back("MOD,-p,-y, ,birthday,1977,certi,PRO");
         strCommand.push_back("MOD,-p,-m, ,birthday,12,name,TWU QSOLT");
-        strCommand.push_back("MOD,-p,-d, ,birtyday,11,phoneNum,010-6672-7186");
+        strCommand.push_back("MOD,-p,-d, ,birthday,11,phoneNum,010-6672-7186");
 
         vector<string> strExpectOutput;
         strExpectOutput.push_back("MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
         strExpectOutput.push_back("MOD,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,PRO");
         strExpectOutput.push_back("MOD,17112609,FB NTAWR,CL4,010-5645-6122,19861203,PRO");
         strExpectOutput.push_back("MOD,15123099,TWU QSOLT,CL3,010-3112-2609,19771211,PRO");
-        strExpectOutput.push_back("MOD,17112609,TWU QSOLT,CL4,010-5645-6122,19861203,PRO");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule0->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule1 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule1->execute(db, fileLogger);
-
-        input = pParser->parseLine(strCommand.at(1));
-        shared_ptr<Mod> pModModule2 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule2->execute(db, fileLogger);
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 
 
@@ -372,36 +236,6 @@ namespace {
         vector<string> strExpectOutput;
         strExpectOutput.push_back("MOD,NONE");
 
-        FileIO outputfile("../EmployeeManagement/modify_result.txt", FileType::OUTPUT);
-        MemoryDatabase db;
-        FileLogger fileLogger(outputfile);
-        Parser parser;
-
-        outputfile.open();
-
-        for (const auto& cmd : initCommands) {
-            Add addCommand(parser.parseLine(cmd));
-            addCommand.execute(db, fileLogger);
-        }
-
-        Input input = pParser->parseLine(strCommand.at(0));
-        shared_ptr<Mod> pModModule0 = make_shared<Mod>(input);
-        fileLogger.setPrintDetail(input.getFirstOption() == "-p");
-        pModModule0->execute(db, fileLogger);
-
-        ifstream resultFile("../EmployeeManagement/modify_result.txt");
-        string outputLine;
-        vector<string> strResultOutput;
-        while (getline(resultFile, outputLine)) {
-            if (outputLine == "") continue;
-            strResultOutput.push_back(outputLine);
-        }
-
-        EXPECT_TRUE(strExpectOutput.size() == strResultOutput.size());
-        for (register int index = 0; index < strExpectOutput.size(); index++) {
-            EXPECT_TRUE(strExpectOutput.at(index) == strResultOutput.at(index));
-        }
-
-        outputfile.close();
+        doTest(strCommand, strExpectOutput);
     }
 }
