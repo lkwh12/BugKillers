@@ -100,7 +100,7 @@ public:
 
 		Filter filter = filterConverter_.getFilter(input_);
 
-		if (!checkSearchExcetion()) {
+		if (!checkSearchException()) {
 			return false;
 		}
 
@@ -118,7 +118,7 @@ public:
 	bool doModify(QUEARY_RESULT& searchResult) {
 		vector<string> payload = input_.getPayload();
 		
-		if (!checkModifyExcetion()) {
+		if (!checkModifyException()) {
 			return false;
 		}
 
@@ -153,7 +153,7 @@ private:
 
 	void (Mod::*pModify[(int)Mod::FunctionIndex::E_COLUMN_MAX_COUNT])(QUEARY_RESULT&, const string&);
 
-	bool checkSearchExcetion() {
+	bool checkSearchException() {
 		const vector<string>& payloads = input_.getPayload();
 
 		if (VERIFY_SEARCH_COLUMN_EMPLOYEENUM(payloads)) {
@@ -177,7 +177,7 @@ private:
 		return true;
 	}
 
-	bool checkModifyExcetion() {
+	bool checkModifyException() {
 		const vector<string>& payloads = input_.getPayload();
 
 		if (VERIFY_MODIFY_COLUMN_EMPLOYEENUM(payloads)) {
