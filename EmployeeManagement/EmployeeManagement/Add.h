@@ -17,7 +17,7 @@ enum Format {
 class Add : public ICommand {
 public:
 	Add(const Input& input_) : input(input_) {}
-	virtual bool execute(IDatabase& db, ILogger& logger) {
+	virtual bool execute(IDatabase& db, ILogger& logger) override {
 		bool ret = true;
 
 		ret = checkException(input.getPayload());

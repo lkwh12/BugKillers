@@ -13,13 +13,13 @@ public:
 
 	}
 
-	virtual bool execute(IDatabase& db, ILogger& logger) {
+	virtual bool execute(IDatabase& db, ILogger& logger) override {
 
 		Filter filter = filterConverter_.getFilter(input_);
 
 		vector<shared_ptr<Employee>> queryResult = db.query(filter);
 
-		logger.dump("MOD", queryResult);
+		logger.dump(input_.getCommand(), queryResult);
 
 		doModify(queryResult);
 
