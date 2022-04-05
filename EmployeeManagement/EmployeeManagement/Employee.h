@@ -12,6 +12,8 @@ struct Name {
 	string name;
 	string firstName;
 	string lastName;
+	static constexpr auto LEN_EMP_NAME = (15);
+	static constexpr auto CHUNK_CNT_NAME = (2);
 };
 struct PhoneNum {
 	PhoneNum(string middlePhoneNum, string lastPhoneNum) {
@@ -22,6 +24,10 @@ struct PhoneNum {
 	string phoneNum;
 	string middlePhoneNum;
 	string lastPhoneNum;
+	static constexpr auto LEN_EMP_PHONE_NUMBER = (13);
+	static constexpr auto LEN_EMP_PHONE_NUMBER_MID = (4);
+	static constexpr auto LEN_EMP_PHONE_NUMBER_LAST = (4);
+	static constexpr auto CHUNK_CNT_PHONE_NUMBER = (3);
 };
 struct BirthDay {
 	BirthDay(string year, string month, string day) {
@@ -34,6 +40,10 @@ struct BirthDay {
 	string year;
 	string month;
 	string day;
+	static constexpr auto LEN_EMP_BIRTHDAY = (8);
+	static constexpr auto LEN_EMP_BIRTHDAY_YEAR = (4);
+	static constexpr auto LEN_EMP_BIRTHDAY_MONTH = (2);
+	static constexpr auto LEN_EMP_BIRTHDAY_DAY = (2);
 };
 
 class Employee {
@@ -50,4 +60,5 @@ public:
 
 	string cl_;
 	string certi_;
+	static constexpr auto LEN_EMP_NO = (8);
 };
