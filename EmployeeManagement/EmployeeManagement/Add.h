@@ -5,13 +5,22 @@
 #include "Input.h"
 #include <sstream>
 
+enum Format {
+	LengthEmpNo = 8,
+	ChunkCountName = 2,
+	LengthName = 15,
+	ChunkCountPhoneNum = 3,
+	LengthPhoneNum = 13,
+	LengthBirthday = 8
+};
+
 class Add : public ICommand {
 public:
 	Add(const Input& input_) : input(input_) {}
 	virtual bool execute(IDatabase& db, ILogger& logger) {
 		bool ret = true;
 
-		ret = checkArgument(input.getPayload());
+		ret = checkException(input.getPayload());
 		if (ret == false) return false;
 
 		Employee e = makeEmployeeData(input.getPayload());
@@ -32,29 +41,66 @@ public:
 		return result;
 	}
 
-	bool checkArgument(const vector<string>& payloads) {
-		if (payloads[0] == " " || payloads[0].length() != 8) {
+	bool checkException(const vector<string>& payloads) {
+		// Check Employee No
+		if (payloads[0].empty() || payloads[0].length() != LengthEmpNo) {
 			//throw invalid_argument("ERROR:: invalid Employee No format!");
 			return false;
 		}
 
-		if (payloads[1] == " ") {
+		// Check Name
+		if (payloads[1].empty() || payloads[1].length() > LengthName) {
 			//throw invalid_argument("ERROR:: invalid Name format!");
 			return false;
 		}
 
-		if (payloads[3] == " " || payloads[3].length() != 13) {
+		vector<string> names = split(payloads[1], ' ');
+		if (names.size() != ChunkCountName) {
+			//throw invalid_argument("ERROR:: invalid Name format!");
+			return false;
+		}
+
+		// Check Phone Number
+		if (payloads[3].empty() || payloads[3].length() != LengthPhoneNum) {
 			//throw invalid_argument("ERROR:: invalid Phone Number format!");
 			return false;
 		}
+		vector<string> phoneNums = split(payloads[3], '-');
+		if (phoneNums.size() != ChunkCountPhoneNum) {
+			//throw invalid_argument("ERROR:: invalid Phone Number format!");
+			return false;
+		}
+		for (const auto& numbers : phoneNums) {
+			for (const auto& num : numbers) {
+				if (num > '9' || num < '0') {
+					//throw invalid_argument("ERROR:: invalid Phone Number format!");
+					return false;
+				}
+			}
+		}
 
-		if (payloads[4] == " " || payloads[4].length() != 8) {
+		// Check Birthday
+		if (payloads[4].empty() || payloads[4].length() != LengthBirthday) {
 			//throw invalid_argument("ERROR:: invalid birthday format!");
 			return false;
 		}
+		for (const auto& num : payloads[4]) {
+			if (num > '9' || num < '0') {
+				//throw invalid_argument("ERROR:: invalid birthday format!");
+				return false;
+			}
+		}
 
-		if (payloads[2] == " " || payloads[5] == "") {
-			//throw invalid_argument("ERROR:: invalid cl or certi format!");
+		// Check CL
+		if (payloads[2] != "CL1" && payloads[2] != "CL2" &&
+			payloads[2] != "CL3" && payloads[2] != "CL4") {
+			//throw invalid_argument("ERROR:: invalid CL format!");
+			return false;
+		}
+
+		// Check Certi
+		if (payloads[5] != "ADV" && payloads[5] != "PRO" && payloads[5] != "EX") {
+			//throw invalid_argument("ERROR:: invalid Certi format!");
 			return false;
 		}
 		return true;
